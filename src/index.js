@@ -1,13 +1,59 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './Stylesheets/professor-style.css';
+import './Stylesheets/index.css';
+import BaseWrap from './BaseWrap/BaseWrap.js';
 import reportWebVitals from './reportWebVitals';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import {
+  createBrowserRouter,
+  RouterProvider
+} from "react-router-dom";
+import DisciplinesPage from './Disciplines/DisciplinesPage';
+import DisciplineItem from './Disciplines/DisciplineItem';
+import ProfilePage from './Profile/ProfilePage';
+import LoginPage from './Login/LoginPage';
+import App from './Components/App';
+import HomePage from './Home/HomePage';
+import SchedulePage from './Schedule/SchedulePage';
+
+const router = createBrowserRouter([
+  {
+    path: "",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <BaseWrap />,
+        children: [
+          {
+            path: "disciplines",
+            element: <DisciplinesPage />
+          },
+          {
+            index: true,
+            path: "/",
+            element: <HomePage />
+          },
+          {
+            path: "profile",
+            element: <ProfilePage />,
+          },
+          {
+            path: "schedule",
+            element: <SchedulePage />
+          }
+        ]
+      },
+    ]
+  }
+  
+]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
+  <React.StrictMode> 
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
