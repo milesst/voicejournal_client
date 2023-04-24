@@ -17,11 +17,31 @@ import LoginPage from './Login/LoginPage';
 import App from './Components/App';
 import HomePage from './Home/HomePage';
 import SchedulePage from './Schedule/SchedulePage';
+import { useState } from 'react';
+// function useToken() {
+//   const getToken = () => {
+//     const tokenString = localStorage.getItem('token');
+//     const userToken = JSON.parse(tokenString);
+//     return userToken?.token
+//   };
+
+//   const [token, setToken] = useState(getToken());
+
+//   const saveToken = userToken => {
+//     localStorage.setItem('token', JSON.stringify(userToken));
+//     setToken(userToken.token);
+//   };
+
+//   return {
+//     token,
+//     setToken: saveToken
+//   }
+// }
 
 const router = createBrowserRouter([
   {
     path: "",
-    element: <App />,
+    element: localStorage.getItem('token') ? <App /> : <LoginPage/>,
     children: [
       {
         path: "/",
@@ -48,7 +68,10 @@ const router = createBrowserRouter([
       },
     ]
   }
-  
+  // {
+  //   path: "",
+  //   element: <RouteGuard path="/" component={App}/>
+  // }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

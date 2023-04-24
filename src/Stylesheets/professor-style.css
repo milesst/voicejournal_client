@@ -23,6 +23,7 @@
     /* background-color: blue; */
     /* display: flex; */
     /* flex-flow: column; */
+    overflow-y: scroll;
 }
 
 .BottomMenuWrap {
@@ -135,6 +136,10 @@
     font-weight: bold;
 }
 
+.DisciplineItem > * {
+    padding: 5px 0 5px 0;
+}
+
 .DisciplineItem .discipline-period {
     font-size: 14px;
 }
@@ -193,6 +198,27 @@ transition: opacity 150ms linear;
     box-sizing: border-box;
 }
 
+.ContentSectionWrap .label {
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+}
+
+.ContentSectionWrap .home-discipline-item {
+    padding: 10px 0;
+    box-sizing: border-box;
+    font-size: 16px;
+
+    border-bottom: 1px solid gray;
+}
+
+.ContentSectionWrap .home-discipline-item  > * {
+    padding-bottom: 5px;
+}
+
+.ContentSectionWrap .home-discipline-item .home-discipline-item-discipline {
+    font-weight: 600;
+}
+
 .ProfilePage {
     background-color: white;
     padding: 15px;
@@ -210,10 +236,68 @@ transition: opacity 150ms linear;
     padding: 0;
 }
 
-.ProfilePage .menu-wrap > * {
-    padding: 10px 0;
+.ProfilePage .menu-wrap * {
+    padding: 20px 0;
+    box-sizing: content-box;
+    text-decoration: none;
 }
 
 .ProfilePage .menu-wrap > *:hover {
     background-color: gainsboro;
+}
+
+.student-group-item {
+    background-color: antiquewhite;
+    padding: 5px 10px;
+    border-radius: 2rem;
+    color: brown;
+}
+
+.SchedulePage {
+    /* padding: 10px; */
+    height: 100%;
+
+    display: flex;
+    flex-flow: column;
+}
+
+.SchedulePage .schedule-header {
+    color: white;
+    font-weight: 600;
+    padding-bottom: 10px;
+
+    padding: 10px 10px;
+}
+
+.SchedulePage .schedule-content {
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+
+    padding: 10px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    /* height: 100%; */
+}
+
+.SchedulePage .schedule-week-item {
+    padding: 5px 10px;
+    background-color: white;
+    flex-grow: 1;
+
+    display: flex;
+
+    border-radius: 20px;
+}
+
+.SchedulePage .week-label {
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.SchedulePage .week-item-content {
+    padding: 10px;
 }
