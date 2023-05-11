@@ -10,6 +10,7 @@ export default function BottomMenuWrap() {
                         ? "pending"
                         : ""
                     }><AiFillHome className="icon" />
+                    {/* <div className='bottom-menu-button-label'>Главная</div> */}
             </NavLink>
             <NavLink to="/schedule" className={({ isActive, isPending }) =>
                       isActive
@@ -18,7 +19,9 @@ export default function BottomMenuWrap() {
                         ? "pending"
                         : ""
                     }>
-            <AiFillCalendar className="icon" /></NavLink>
+            <AiFillCalendar className="icon" />
+                    {/* <div className='bottom-menu-button-label'>Расписание</div> */}
+            </NavLink>
             <NavLink to="/disciplines" className={({ isActive, isPending }) =>
                       isActive
                         ? "selected"
@@ -27,6 +30,7 @@ export default function BottomMenuWrap() {
                         : ""
                     }>
                     <AiFillProfile className="icon" />
+                    {/* <div className='bottom-menu-button-label'>Дисциплины</div> */}
             </NavLink>
             <NavLink to="/profile" className={({ isActive, isPending }) =>
                       isActive
@@ -35,7 +39,9 @@ export default function BottomMenuWrap() {
                         ? "pending"
                         : ""
                     }>
-            <AiFillSmile className="icon" /></NavLink>
+            <AiFillSmile className="icon" />
+            {/* <div className='bottom-menu-button-label'>Профиль</div> */}
+            </NavLink>
         </div>
     )
 }

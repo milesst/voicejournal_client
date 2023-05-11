@@ -37,6 +37,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    z-index: 9999;
 }
 
 .icon {
@@ -62,13 +64,19 @@
     /* margin: auto; */
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.BottomMenuWrap .bottom-menu-button-label {
+    font-size: 0.6rem;
 }
 
 .selected * {
     color: rgb(90, 90, 90);
 }
 
-.ContentHeader {
+.ContentHeader, .ActiveClassPage .class-info-wrap {
     background-color: rgb(75, 99, 237);
     width: 100%;
     height: 50px;
@@ -76,10 +84,14 @@
     /* padding: 1rem 0; */
 
     position: relative;
-    z-index: 99999;
+    z-index: 9999;
 }
 
-.ContentHeader::before {
+.ActiveClassPage .class-info-wrap {
+    height: 30%;
+}
+
+.ContentHeader::before, .ActiveClassPage .class-info-wrap:before {
     content: "";
     position: absolute;
 
@@ -90,7 +102,8 @@
     width: 100%;
     border-radius: 25px 25px 0 0;
     box-shadow: 0 -25px 0 0 rgb(75, 99, 237); /* This is where the magic happens! */
-    z-index: -1;
+    z-index: -999;
+    pointer-events: none;
 }
 
 .content-header-label {
@@ -109,7 +122,7 @@
 .content-header-label span {
 }
 
-.DisciplinesPage {
+.DisciplinesPage, .GroupPage, .ActiveClassPage {
     /* flex-grow: 10; */
     height: 100%;
     background-color: white;
@@ -146,6 +159,8 @@
 
 .discipline-groups {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .group {
@@ -179,7 +194,16 @@ transition: opacity 150ms linear;
 }
 
 .HomePage {
-    padding: 10px 20px;
+    /* padding: 1.4rem 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-flow: column;
+    gap: 10px; */
+}
+
+.HomePage .content-section-wrap {
+    padding: 1.4rem 20px;
     box-sizing: border-box;
 
     display: flex;
@@ -194,21 +218,54 @@ transition: opacity 150ms linear;
 
     border-radius: 15px;
 
-    padding: 10px;
+    padding: 1rem;
     box-sizing: border-box;
 }
 
-.ContentSectionWrap .label {
-    border-bottom: 1px solid gray;
-    padding-bottom: 5px;
+.ContentSectionWrap .home-discipline-item:hover {
+    background-color: lightblue;
 }
 
-.ContentSectionWrap .home-discipline-item {
-    padding: 10px 0;
+.ContentSectionWrap .home-content-header {
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+
+    font-weight: 600;
+    color:rgb(75, 99, 237);
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.ContentSectionWrap .home-documents {
+    border: 0;
+    padding-bottom: 0;
+}
+
+.ContentSectionWrap .home-content-header-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.ContentSectionWrap .content-section-content {
+    padding-top: 0.4rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: gray;
+}
+
+.ContentSectionWrap .home-discipline-item, .ContentSectionWrap .assignment-item {
+    padding: 0.6rem 0;
     box-sizing: border-box;
     font-size: 16px;
 
     border-bottom: 1px solid gray;
+}
+
+.ContentSectionWrap .home-discipline-item:last-child, .ContentSectionWrap .assignment-item:last-child {
+    border: 0;
 }
 
 .ContentSectionWrap .home-discipline-item  > * {
@@ -216,8 +273,41 @@ transition: opacity 150ms linear;
 }
 
 .ContentSectionWrap .home-discipline-item .home-discipline-item-discipline {
-    font-weight: 600;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color:rgb(0, 0, 0);
+    padding-top: 0.4rem;
 }
+
+.ContentSectionWrap .home-discipline-item-time {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background-color: rgb(255, 137, 53);
+
+    width: min-content;
+
+    padding: 0.2rem 0.6rem;
+    color: white;
+    border-radius: 2rem;
+}
+
+.ContentSectionWrap .home-discipline-item-groups {
+    padding-top: 0.3rem;
+    color:rgb(75, 99, 237);
+}
+
+.assignment-item-info {
+    color: black;
+    font-weight: 600;
+    padding: 0.2rem 0;
+}
+
+.assignment-item {
+
+}
+/* .ContentSectionWrap .home-discipline-item-header > * {
+    
+} */
 
 .ProfilePage {
     background-color: white;
@@ -253,7 +343,7 @@ transition: opacity 150ms linear;
     color: brown;
 }
 
-.SchedulePage {
+.SchedulePage, .GroupPage {
     /* padding: 10px; */
     height: 100%;
 
@@ -261,7 +351,7 @@ transition: opacity 150ms linear;
     flex-flow: column;
 }
 
-.SchedulePage .schedule-header {
+.SchedulePage .schedule-header, .GroupPage .schedule-header {
     color: white;
     font-weight: 600;
     padding-bottom: 10px;
@@ -269,7 +359,7 @@ transition: opacity 150ms linear;
     padding: 10px 10px;
 }
 
-.SchedulePage .schedule-content {
+.SchedulePage .schedule-content, .GroupPage .schedule-content {
     display: flex;
     flex-flow: column;
     gap: 5px;
@@ -280,24 +370,289 @@ transition: opacity 150ms linear;
     /* height: 100%; */
 }
 
+.SchedulePage {
+    padding: 0;
+}
+
+.SchedulePage .schedule-content {
+    padding: 1rem 0rem 0rem;
+}
+
 .SchedulePage .schedule-week-item {
-    padding: 5px 10px;
+    padding: 0 0 0 10px;
     background-color: white;
     flex-grow: 1;
 
     display: flex;
 
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 
 .SchedulePage .week-label {
-    padding: 0;
+    padding: 0 0.4rem 0 0;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
+
+    width: 2rem;
+}
+
+.SchedulePage .week-label-today {
+    background-color: rgb(255, 137, 53);
+    /* border: 4px solid rgb(255, 137, 53); */
+    box-sizing: border-box;
+    /* box-shadow: inset 0 0 0 5px rgb(255, 137, 53); */
+    
+}
+
+.SchedulePage .week-label-date {
+    font-weight: 800;
 }
 
 .SchedulePage .week-item-content {
-    padding: 10px;
+    /* padding: 10px; */
+    display: flex;
+    width: 100%;
+
+    position: relative;
+}
+
+.SchedulePage .week-item-content > *:nth-child(even) {
+    background-color: rgb(75, 99, 237);
+    color: white;
+}
+
+.SchedulePage .week-item-content > *:nth-child(odd) {
+    background-color: white;
+    color: black;
+}
+
+
+.SchedulePage select {
+    background-color: transparent;
+    font-family: Montserrat;
+    color: white;
+    border: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.SchedulePage option {
+    color: black;
+}
+
+.SchedulePage select:focus {
+    border:0;
+    outline: 0;
+}
+
+.SchedulePage .ScheduleWeekClass {
+    background-color: rgb(255, 188, 33);
+    border-radius: 1rem 0 0 1rem;
+    width: 100%;
+    height: 100%;
+
+    padding: 0.9rem;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+
+    color: white;
+    font-weight: 600;
+
+    position: absolute;
+
+    transition: width 0.3s ease-out;
+    transition: max-width 0.3s ease-out;
+    transition: min-width 0.3s ease-out;
+
+    /* z-index: 9999; */
+    right: 0;
+}
+
+.SchedulePage .class-hidden {
+    width: min-content;
+    /* text-overflow: clip; */
+    text-align: center;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.SchedulePage .class-hidden .class-content-wrap > *:not(:first-child) {
+    display: none;
+}
+
+.SchedulePage .ScheduleWeekClass .class-name {
+    font-size: 0.9rem;
+    font-weight: lighter;
+}
+
+.SchedulePage .left {
+    width: 100%;
+}
+
+.SchedulePage .right {
+    /* right: 0; */
+}
+
+.ActiveClassPage {
+    box-sizing: border-box;    
+    /* padding: 0.3rem; */
+    background-color: transparent;
+
+    display: flex;
+    flex-flow: column;
+
+}
+
+.ActiveClassPage .class-info-wrap, .ActiveClassPage .class-info-wrap:before {
+
+    box-sizing: border-box;
+}
+
+.ActiveClassPage .class-info-wrap {
+    /* padding: 15px 15px 0 15px; */
+    box-sizing: border-box;
+}
+
+.ActiveClassPage .class-duration {
+    display: flex;
+    justify-content: center;
+
+    color: white;
+    font-weight: 600;
+    font-size: 1.6rem;
+
+    padding: 0.9rem 0;
+}
+
+.ActiveClassPage .timer {
+    width: min-content;
+}
+
+.ActiveClassPage .group-info-wrap {
+    background-color: white;
+
+    z-index: 999999;
+
+    height: 70%;
+}
+
+.ActiveClassPage .active-class-save {
+    padding: 0.5rem 0.7rem;
+    border: 0;
+    border-radius: 100rem;
+    color: rgb(75, 99, 237);
+
+}
+
+.ActiveClassPage .active-class-btns {
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.ActiveClassPage .active-class-actions {
+    display: flex;
+    flex-flow: column;
+    background-color: white;
+
+    box-sizing: border-box;
+
+    /* height: 80%; */
+    flex-grow: 2;
+
+    justify-content: space-between;
+}
+
+.class-info-detail-wrap {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+
+    gap: 2rem;
+    /* justify-content: space-between; */
+}
+
+.class-name-wrap, .class-date-place-wrap {
+    color: white;
+    font-weight: 600;
+
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.class-date-place-wrap {
+    font-weight: 300;
+}
+
+.class-name-wrap .class-name-label {
+    font-weight: 300;
+}
+
+.NewTaskPopup {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* display: inherit; */
+}
+
+/* .NewTaskPopup * {
+    display: inherit;
+} */
+
+.NewTaskPopup .new-task-wrap {
+    width: 80%;
+    /* height: 50%; */
+    background-color: white;
+
+    border-radius: 1rem;
+    padding: 1rem 1.3rem;
+    box-sizing: border-box;
+}
+
+.NewTaskPopup .new-task-form {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+
+    font-size: 1.9rem;
+}
+
+.NewTaskPopup >  * > * > * {
+    font-size: 1.1rem;
+    padding: 0.5rem 0.7rem;
+    box-sizing: border-box;
+}
+
+.NewTaskPopup .new-task-button-wrap {
+    width: 100%;
+    display: flex;
+    padding: 0;
+}
+
+.NewTaskPopup .new-task-button-wrap > * {
+    flex-grow: 1;
+    width: 50%;
+    /* padding: 0; */
+}
+
+.NewTaskPopup h3 {
+    margin: 0;
+    margin-bottom: 1rem;
+} 
+
+.GroupPage .all-students-wrap, .GroupPage li {
+    transition: display ease-in 0.4s;
+}
+
+.react-select-container {
+    padding: 0;
 }

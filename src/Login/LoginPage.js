@@ -1,6 +1,8 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useState, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom'
+
 function useToken() {
   const getToken = () => {
     const tokenString = localStorage.getItem('token');
@@ -28,7 +30,7 @@ async function loginUser(credentials) {
     }
    )
     console.log(response.data)
-    return response.data.accessToken
+    return JSON.stringify(response.data)
    }
 
    
@@ -36,6 +38,7 @@ export default function LoginPage() {
     const [username, setUserName] = useState('login5');
     const [password, setPassword] = useState('password');
     const {token, setToken}  = useToken();
+      const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -44,16 +47,18 @@ export default function LoginPage() {
           password
         });
         setToken(token);
+
+        navigate("/")
       }
 
     return (
         <div className="LoginPage">
-            login
             <form onSubmit={handleSubmit}>
+                {/* <h2>Вход</h2> */}
                 <input type="text" defaultValue={'login5'} onChange={e => setUserName(e.target.value)}/>
-                <input type="text" defaultValue={'password'} onChange={e => setPassword(e.target.value)}/>
-                <div>
-                <button type="submit">Submit</button>
+                <input type="password" defaultValue={'password'} onChange={e => setPassword(e.target.value)}/>
+                <div className="submit-wrap">
+                <button type="submit">Войти</button>
                 </div>
             </form>
         </div>

@@ -18,6 +18,8 @@ import App from './Components/App';
 import HomePage from './Home/HomePage';
 import SchedulePage from './Schedule/SchedulePage';
 import { useState } from 'react';
+import GroupPage from './Groups/GroupPage';
+import ActiveClassPage from './ActiveClass/ActiveClassPage';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -63,10 +65,22 @@ const router = createBrowserRouter([
           {
             path: "schedule",
             element: <SchedulePage />
+          },
+          {
+            path: "groups",
+            element: <GroupPage />
+          },
+          {
+            path: "activeClass",
+            element: <ActiveClassPage />
           }
         ]
       },
     ]
+  },
+  {
+    path: "login",
+    element: <LoginPage />
   }
   // {
   //   path: "",

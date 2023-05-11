@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import DisciplineItem from "./DisciplineItem";
 import axios from "axios";
+import { getAccessToken } from "../Utils/utils";
 
 export default function DisciplinesPage() {
     const [disciplines, setDisciplines] = useState([])
 
     useEffect(() => {
         const apiUrl = 'http://localhost:3000/api/professor/disciplinesAndGroups?userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-        axios.get(apiUrl, {headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }}).then((resp) => {
+        axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setDisciplines(allPersons);
         });
