@@ -4,6 +4,7 @@ import NewTaskPopup from "../Popup/NewTaskPopup";
 import axios from "axios";
 import { getAccessToken, parseFullDateFromJSON } from "../Utils/utils"
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import SaveClassPopup from "../Popup/SaveClassPopup";
 
 function Timer(props) {
     return (
@@ -33,6 +34,8 @@ export default function ActiveClassPage(props) {
   const [search, setSearch] = useSearchParams()
   const location = useLocation()
   const [classInfo, setClassInfo] = useState(location.state)
+
+  const [saveClassPopupShow, setSaveClassPopupShow] = useState(false)
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_SERVER_API_URL + `/api/professor/assignmentsForClass?scheduleId=${classInfo.schedule_id}&userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11`;
@@ -66,16 +69,31 @@ export default function ActiveClassPage(props) {
       }, 10);
   }, [])
 
-  function saveClass() {
+  function saveClass(comment) {
     const apiUrl = process.env.REACT_APP_SERVER_API_URL + `/api/professor/saveClass?scheduleId=${classInfo.schedule_id}&userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11`;
-    axios.post(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
-      const assignments = resp.data
-      setAssignments(assignments)
-    });
+    const classData = {
+      scheduleId: classInfo.scheduleId,
+      comment: comment,
+      date: startTime,
+      endDate: new Date().toLocaleString()
+    }
+    
+    axios.post(apiUrl, classData, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
+   
+    })
+  }
+
+  function openSavePopup() {
+    setSaveClassPopupShow(true)
+  }
+
+  function closeSavePopup() {
+    setSaveClassPopupShow(false)
   }
 
     return (
         <div className="ActiveClassPage">
+          <span className="popup-wrap" style={{'display': (saveClassPopupShow ? 'initial' : 'none')}}><SaveClassPopup buttonAction={saveClass} closeForm={closeSavePopup}></SaveClassPopup></span>
             <span className="popup-wrap" style={{'display': (newTaskVisible ? 'initial' : 'none')}}><NewTaskPopup closeForm={closeForm}/></span>
             <div className="class-info-wrap">
                 <div className="class-duration"><Timer time={time}></Timer></div>
@@ -102,7 +120,7 @@ export default function ActiveClassPage(props) {
                     </div>
                 </div>
                 <div className="active-class-btns">
-                      <button className="active-class-save" onClick={saveClass}>Завершить</button>
+                      <button className="active-class-save" onClick={() => openSavePopup()}>Завершить</button>
                 </div>
             </div>
             

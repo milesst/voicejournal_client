@@ -20,6 +20,7 @@ import SchedulePage from './Schedule/SchedulePage';
 import { useState } from 'react';
 import GroupPage from './Groups/GroupPage';
 import ActiveClassPage from './ActiveClass/ActiveClassPage';
+import AssignmentPage from './Assignments/AssignmentPage';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
           {
             path: "activeClass",
             element: <ActiveClassPage />
+          },
+          {
+            path: "assignment",
+            element: <AssignmentPage />
           }
         ]
       },

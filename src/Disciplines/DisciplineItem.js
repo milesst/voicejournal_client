@@ -8,6 +8,16 @@ export default function DisciplineItem(props) {
             <div className="discipline-groups">
                 {props.groups.map(item => <NavLink to='/groups'><div className='student-group-item' id={item.group_id}>{item.group_number}</div></NavLink>)}
             </div>
+            <div className="discipline-assignments">
+                <div className="assignment-item">
+                    <div className="assignment-name">Лаб. 5</div>
+                    <div className="assignment-deadline">15 мая</div>
+                </div>
+                <div className="assignment-item">
+                    <div className="assignment-name">Лаб. 5</div>
+                    <div className="assignment-deadline">15 мая</div>
+                </div>
+            </div>
         </div>
     )
 }
