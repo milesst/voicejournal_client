@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './Stylesheets/professor-style.css';
+import './Stylesheets/admin.css';
 import './Stylesheets/index.css';
 import BaseWrap from './BaseWrap/BaseWrap.js';
 import reportWebVitals from './reportWebVitals';
@@ -21,6 +22,9 @@ import { useState } from 'react';
 import GroupPage from './Groups/GroupPage';
 import ActiveClassPage from './ActiveClass/ActiveClassPage';
 import AssignmentPage from './Assignments/AssignmentPage';
+import { AdminPage } from './Administrator/AdminPage';
+import { Users } from './Administrator/Users';
+import { Home } from './Administrator/Home';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -78,6 +82,20 @@ const router = createBrowserRouter([
           {
             path: "assignment",
             element: <AssignmentPage />
+          },
+          {
+            path: "admin",
+            element: <AdminPage />,
+            children: [
+              {
+                path: "",
+                element: <Home />,
+              },
+              {
+                path: "users",
+                element: <Users />
+              }
+            ]
           }
         ]
       },
