@@ -21,6 +21,9 @@ import { useState } from 'react';
 import GroupPage from './Groups/GroupPage';
 import ActiveClassPage from './ActiveClass/ActiveClassPage';
 import AssignmentPage from './Assignments/AssignmentPage';
+import ClassHistoryPage from './ClassHistory/ClassHistoryPage';
+import DocumentPage from './Documents/DocumentPage';
+import DocGenPage from './Documents/DocGenPage';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -68,7 +71,7 @@ const router = createBrowserRouter([
             element: <SchedulePage />
           },
           {
-            path: "groups",
+            path: "groups/:groupId",
             element: <GroupPage />
           },
           {
@@ -76,8 +79,20 @@ const router = createBrowserRouter([
             element: <ActiveClassPage />
           },
           {
-            path: "assignment",
+            path: "assignments/:id",
             element: <AssignmentPage />
+          },
+          {
+            path: "classHistory",
+            element: <ClassHistoryPage />
+          },
+          {
+            path: "documents",
+            element: <DocumentPage />
+          },
+          {
+            path: "newDocument",
+            element: <DocGenPage />
           }
         ]
       },
@@ -87,10 +102,6 @@ const router = createBrowserRouter([
     path: "login",
     element: <LoginPage />
   }
-  // {
-  //   path: "",
-  //   element: <RouteGuard path="/" component={App}/>
-  // }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

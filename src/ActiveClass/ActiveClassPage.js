@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import ContentSectionWrap from "../Home/ContentSectionWrap";
 import NewTaskPopup from "../Popup/NewTaskPopup";
 import axios from "axios";
-import { getAccessToken, parseFullDateFromJSON } from "../Utils/utils"
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { getAccessToken, getUserId, parseFullDateFromJSON } from "../Utils/utils"
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import SaveClassPopup from "../Popup/SaveClassPopup";
+import StudentList from "../Students/StudentList";
 
 function Timer(props) {
     return (
@@ -34,14 +35,72 @@ export default function ActiveClassPage(props) {
   const [search, setSearch] = useSearchParams()
   const location = useLocation()
   const [classInfo, setClassInfo] = useState(location.state)
+  const navigate = useNavigate();
 
   const [saveClassPopupShow, setSaveClassPopupShow] = useState(false)
 
+  const commands = [
+    {
+      command: "*",
+      callback: (command) => {
+        let commandSplit = command.split(" ");
+        let grade = commandSplit[commandSplit.length-1];
+        commandSplit.pop();
+        let student = commandSplit.join(' ').toLowerCase();
+
+      let finalResult = ["NO_STUDENT", grade]
+
+      for (let stud of students) {
+        if (stud.lastName.toLowerCase() === student) 
+          finalResult[0] = student
+      }
+
+      if (finalResult[0] === "NO_STUDENT") {
+        for (let posStud of students) {
+          for (let posRes of posStud.possibleResults) {
+            if (student === posRes)
+              finalResult[0] = posStud.lastName
+          }
+
+        }
+      }
+
+      console.log("EXECUTE COMMAND: " + finalResult[0] + " " + finalResult[1]);
+      if (finalResult[0] != "NO_STUDENT") {
+        let listeningMode = ''
+        if (/отсутствует|на месте|есть|здесь/.test(command))
+          listeningMode = 'attendance'
+        else
+          listeningMode = 'grade'
+
+        let newStudents = students;
+        let i = newStudents.findIndex(stud => stud.lastName.toLowerCase() === finalResult[0])
+        if (listeningMode === "grade") {
+          console.log("command grade: "+ finalResult[0] + " " + finalResult[1])
+          newStudents[i].grade = finalResult[1];
+          setStudents(students)
+        }
+        else if (listeningMode === "attendance") {
+          console.log("index "+ i)
+          if (grade === "нет" || grade === "отсутствует")
+                newStudents[i].attendance = false
+          if (grade === "здесь" || grade === "тут")
+                newStudents[i].attendance = true
+          setStudents(newStudents)
+          console.log("command attend: " + finalResult[0] + " " + finalResult[1])
+        }
+          else console.log("nothing")  
+      }
+    },
+  },
+  ]
+
   useEffect(() => {
-    const apiUrl = process.env.REACT_APP_SERVER_API_URL + `/api/professor/assignmentsForClass?scheduleId=${classInfo.schedule_id}&userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11`;
+    const apiUrl = process.env.REACT_APP_SERVER_API_URL + `/api/professor/assignmentsForClass?scheduleId=${classInfo.schedule_id}&userId=${getUserId()}`;
     axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
       const assignments = resp.data
-      setAssignments(assignments)
+      setAssignments(assignments.assignments)
+      console.log(assignments)
     });
   }, [setAssignments]);
 
@@ -49,7 +108,10 @@ export default function ActiveClassPage(props) {
     const apiUrl = `http://localhost:3000/api/professor/groupStudents?groupId=${classInfo.group_id}`;
     axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
       const allPersons = resp.data;
-      setStudents(allPersons);
+      for (let i of allPersons) {
+        i.absent = true
+      }
+      setStudents(allPersons)
       console.log(allPersons)
     });
   }, [setStudents]);
@@ -69,17 +131,19 @@ export default function ActiveClassPage(props) {
       }, 10);
   }, [])
 
-  function saveClass(comment) {
-    const apiUrl = process.env.REACT_APP_SERVER_API_URL + `/api/professor/saveClass?scheduleId=${classInfo.schedule_id}&userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11`;
+  function saveClass(classComment) {
+    const apiUrl = process.env.REACT_APP_SERVER_API_URL + `/api/professor/completedClass?scheduleId=${classInfo.schedule_id}&userId=${getUserId()}`;
     const classData = {
-      scheduleId: classInfo.scheduleId,
-      comment: comment,
+      scheduleId: classInfo.schedule_id,
+      comment: classComment,
       date: startTime,
-      endDate: new Date().toLocaleString()
+      endDate: new Date().toLocaleString(),
+      students: students
     }
+    console.log(classData)
     
     axios.post(apiUrl, classData, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
-   
+      navigate('/')
     })
   }
 
@@ -89,6 +153,16 @@ export default function ActiveClassPage(props) {
 
   function closeSavePopup() {
     setSaveClassPopupShow(false)
+  }
+
+  function setStudentPresent(e, key) {
+    let newStudents = students
+    for (let i = 0; i < newStudents.length; i++) {
+      if (newStudents[i].student_id === key)
+      newStudents[i].absent = !students[i].absent
+    }
+    setStudents(newStudents)
+    console.log(newStudents)
   }
 
     return (
@@ -112,14 +186,9 @@ export default function ActiveClassPage(props) {
             <div className="active-class-actions">
                 <div className="group-info-wrap">
                     <ContentSectionWrap contentLabel={'Задания'} tasks={assignments} buttonAction={() => addNewTask()}/>
-                    <div className="active-class-group-list-wrap">
-                        <div className="group-list-label">Студенты</div>
-                        <div className="group-list">
-                            {students ? students.map(item => <div className='student-list-item'><div className="student-name">{item.last_name} {item.first_name}</div></div>) : ''}
-                        </div>
-                    </div>
+                    <StudentList students={students} activeClass={true} setStudentPresent={setStudentPresent}/>
                 </div>
-                <div className="active-class-btns">
+                <div className="active-class-btns btn-wrap">
                       <button className="active-class-save" onClick={() => openSavePopup()}>Завершить</button>
                 </div>
             </div>

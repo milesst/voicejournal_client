@@ -59,3 +59,10 @@ self.addEventListener('fetch', function(event) {
       );
     }
 });
+
+// setInterval(() => {
+//   navigator.serviceWorker.registration.showNotification('Скоро занятие', {
+//     body: 'У Вас скоро занятие!',
+//     tag: 'spell',
+//   })
+// }, 40000)

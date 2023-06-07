@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "../Utils/utils";
 import Select from "react-select";
+import { getUserId } from "../Utils/utils";
 
 export default function NewTaskPopup(props) {
     const [disciplines, setDisciplines] = useState()
@@ -11,7 +12,7 @@ export default function NewTaskPopup(props) {
     const [group, setGroup] = useState()
     const [name, setName] = useState()
     const [description, setDescription] = useState()
-    const [startDate, setStartDate] = useState()
+    const [startDate, setStartDate] = useState(new Date().toLocaleDateString().split('.').reverse().join('-'))
     const [deadline, setDeadline] = useState()
     const [responseBody, setResponseBody] = useState()
 
@@ -67,7 +68,7 @@ export default function NewTaskPopup(props) {
     }
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:3000/api/professor/disciplinesAndGroups?userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+        const apiUrl = `http://localhost:3000/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
     
@@ -80,13 +81,13 @@ export default function NewTaskPopup(props) {
             <div className="new-task-wrap">
                 <h3>Новое задание</h3>
                 <form className="new-task-form" onSubmit={inputChangeHandler}>
-                    <Select className="react-select-container" onChange={handleChangeDiscipline} options={disciplines ? disciplines.map(item => {return {'label': item.discipline, 'value': JSON.stringify(item)} }) : []} />
-                    <Select className="react-select-container" onChange={handleChangeGroup} options={selectedDiscipline ? JSON.parse(selectedDiscipline['value'])['groups'].map(item => {return {'label': item.group_number, 'value': item.group_id} }) : []} />
+                    <Select placeholder={'Дисциплина'} className="react-select-container" onChange={handleChangeDiscipline} options={disciplines ? disciplines.map(item => {return {'label': item.discipline, 'value': JSON.stringify(item)} }) : []} />
+                    <Select placeholder='Группа' className="react-select-container" onChange={handleChangeGroup} options={selectedDiscipline ? JSON.parse(selectedDiscipline['value'])['groups'].map(item => {return {'label': item.group_number, 'value': item.group_id} }) : []} />
                     <input name='name' onChange={handleChangeName} type="text" placeholder="Название" required />
                     <textarea name='description' onChange={handleChangeDesc} type="text" placeholder="Описание"/>
-                    <input type="date" onChange={handleChangeStartDate} />
+                    <input type="date" defaultValue={startDate} onChange={handleChangeStartDate} />
                     <input type="date" onChange={handleChangeDeadline}/>
-                    <div className="new-task-button-wrap">
+                    <div className="btn-wrap new-task-button-wrap">
                     <button type='submit' onClick={props.closeForm}>Сохранить</button><button type='button' onClick={props.closeForm}>Отмена</button></div>
                 </form>
             </div>

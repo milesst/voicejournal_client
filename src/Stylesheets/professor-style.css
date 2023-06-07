@@ -6,6 +6,11 @@
     font-size: 1.2rem;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .BaseWrap {
     width: 100vw;
     height: 100vh;
@@ -18,7 +23,7 @@
 
 .ContentWrap {
     flex-grow: 1;
-    /* height: 100%; */
+    height: 100%;
     width: 100%;
     /* background-color: blue; */
     /* display: flex; */
@@ -87,8 +92,14 @@
     z-index: 9999;
 }
 
+.ActiveClassPage .group-list > * {
+    padding: 0.5rem 0;
+}
+
 .ActiveClassPage .class-info-wrap {
     height: 30%;
+    margin-bottom: 10px;
+
 }
 
 .ContentHeader::before, .ActiveClassPage .class-info-wrap:before {
@@ -116,16 +127,45 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    box-sizing: border-box;z-index: 99999;
+    box-sizing: border-box;
+    /* z-index: 99999; */
 }
 
 .content-header-label span {
 }
 
-.DisciplinesPage, .GroupPage, .ActiveClassPage {
+.DisciplinesPage, .GroupPage, .ActiveClassPage , .ClassHistoryPage {
     /* flex-grow: 10; */
     height: 100%;
     background-color: white;
+}
+
+.GroupPage .hidden {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.GroupPage .all-students-wrap {
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+}
+
+.GroupPage .show {
+    opacity: 1;
+    max-height: 100vh;
+}
+
+.GroupPage .all-students-header svg {
+    background-color: rgb(75, 99, 237);
+    color: white;
+    border-radius: 100%;
+    padding: 0.2rem;
+
+}
+
+.AssignmentPage .Content {
+    /* height:100%; */
 }
 
 .Content {
@@ -134,7 +174,7 @@
     flex-grow: 1;
     padding: 10px;
     box-sizing: border-box;
-    /* background-color: white; */
+    background-color: white;
 }
 
 .DisciplineItem {
@@ -142,11 +182,25 @@
     padding: 15px 5px;
     box-sizing: border-box;
     /* height: 50px; */
-    border-bottom: 1px solid gray;
+}
+
+.DisciplineItem:not(:last-child) {
+    border-bottom: 3px solid rgb(75, 99, 237);
+
 }
 
 .DisciplineItem .discipline-name {
-    font-weight: bold;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-right: 0.3rem;
+}
+
+.DisciplineItem .discipline-name a {
+    display: flex;
+    align-items: center; 
 }
 
 .DisciplineItem > * {
@@ -155,6 +209,16 @@
 
 .DisciplineItem .discipline-period {
     font-size: 14px;
+}
+
+.assignments-label {
+    /* margin-bottom: 0.5rem; */
+    padding: 0.8rem 0;
+    font-weight: 600;
+
+    color: black;
+
+    border-top: 4px dotted gray;
 }
 
 .discipline-groups {
@@ -169,17 +233,55 @@
 
 .discipline-assignments {
     width: 100%;
+    margin-top: 10px;
 }
 
-.discipline-assignments > * {
-    background-color: lightgray;
+.discipline-assignments > * > * {
+    /* background-color: lightgray; */
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-radius: 0.1rem;
     box-sizing: border-box;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
 
     border-bottom: 1px solid white;
+}
+
+.discipline-assignments .assignment-name {
+    font-weight: 500;
+    max-width: 55%;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    font-size: 1rem;
+}
+
+.assignment-name p {
+    margin: 0;
+}
+
+.discipline-assignments .assignment-deadline {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+
+    background-color: red;
+    border-radius: 100px;
+    padding: 0.2rem 0.9rem;
+    box-sizing: border-box;
+}
+
+.assignment-deadline .deadline-icon {
+    /* margin: auto; */
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.assignment-deadline .deadline-label {
+    color: white;
+    font-weight: 600;
 }
 
 .fade-appear,
@@ -241,7 +343,7 @@ transition: opacity 150ms linear;
     background-color: lightblue;
 }
 
-.ContentSectionWrap .home-content-header {
+.ContentSectionWrap .home-content-header, .active-class-group-list-wrap .group-list-label, .all-students-header {
     border-bottom: 1px solid gray;
     padding-bottom: 5px;
 
@@ -250,6 +352,33 @@ transition: opacity 150ms linear;
 
     display: flex;
     justify-content: space-between;
+}
+
+.all-students-header {
+    padding-top: 1rem;
+    /* padding: */
+    /* align-items: flex-start; */
+}
+
+.all-students-wrap {
+    padding: 0;
+    /* padding-top: 1rem; */
+}
+
+.all-students-wrap li {
+    padding: 0.9rem 0;
+    font-size: 1rem;
+    height: 2rem;
+
+    border-bottom: 1px solid lightgray;
+}
+
+.all-students-wrap li:last-child {
+    border: 0;
+}
+
+.active-class-group-list-wrap .group-list-label {
+    margin-bottom: 10px;
 }
 
 .ContentSectionWrap .home-documents {
@@ -279,7 +408,7 @@ transition: opacity 150ms linear;
     border-bottom: 1px solid gray;
 }
 
-.ContentSectionWrap .home-discipline-item:last-child, .ContentSectionWrap .assignment-item:last-child {
+.ContentSectionWrap .home-discipline-item:last-child, .ContentSectionWrap .content-section-navlink:last-child .assignment-item {
     border: 0;
 }
 
@@ -315,10 +444,21 @@ transition: opacity 150ms linear;
     color: black;
     font-weight: 600;
     padding: 0.2rem 0;
+    overflow-wrap: normal;
+}
+
+.assignment-item-name {
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .assignment-item {
 
+}
+
+.ContentSectionWrap .assignment-item-description {
+    /* font-size: 0.9rem; */
+    padding: 0.2rem 0;
 }
 /* .ContentSectionWrap .home-discipline-item-header > * {
     
@@ -333,6 +473,9 @@ transition: opacity 150ms linear;
 .ProfilePage .user-name-wrap {
     padding: 15px 0;
     border-bottom: 1px solid gray;
+
+    font-weight: 600;
+    font-size: 1.4rem;
 }
 
 .ProfilePage .menu-wrap {
@@ -358,7 +501,7 @@ transition: opacity 150ms linear;
     color: brown;
 }
 
-.SchedulePage, .GroupPage {
+.SchedulePage, .GroupPage, .page-wrap {
     /* padding: 10px; */
     height: 100%;
 
@@ -390,12 +533,12 @@ transition: opacity 150ms linear;
 }
 
 .SchedulePage .schedule-content {
-    padding: 1rem 0rem 0rem;
+    padding: 1rem 0rem 10px;
 }
 
 .SchedulePage .schedule-week-item {
     padding: 0 0 0 10px;
-    background-color: white;
+    /* background-color: white; */
     flex-grow: 1;
 
     display: flex;
@@ -411,6 +554,15 @@ transition: opacity 150ms linear;
     align-items: center;
 
     width: 2rem;
+
+    /* color:rgb(75, 99, 237); */
+    color: white;
+    /* background-color: aquamarine; */
+}
+
+.schedule-week-item {
+    /* background-color: gainsboro; */
+    /* box-shadow: inset -319px 0 5px gray; */
 }
 
 .SchedulePage .week-label-today {
@@ -477,12 +629,12 @@ transition: opacity 150ms linear;
 
     position: absolute;
 
-    transition: width 0.3s ease-out;
-    transition: max-width 0.3s ease-out;
-    transition: min-width 0.3s ease-out;
-
     /* z-index: 9999; */
     right: 0;
+}
+
+.ScheduleWeekClass, .class-hidden, .left, .right {
+    transition: width 0.5s ease-in;
 }
 
 .SchedulePage .class-hidden {
@@ -514,7 +666,7 @@ transition: opacity 150ms linear;
 .ActiveClassPage {
     box-sizing: border-box;    
     /* padding: 0.3rem; */
-    background-color: transparent;
+    /* background-color: transparent; */
 
     display: flex;
     flex-flow: column;
@@ -552,6 +704,7 @@ transition: opacity 150ms linear;
     z-index: 999999;
 
     height: 70%;
+    /* padding: 1.5rem; */
 }
 
 .ActiveClassPage .active-class-save {
@@ -560,11 +713,21 @@ transition: opacity 150ms linear;
     border-radius: 100rem;
     color: rgb(75, 99, 237);
 
+    background-color: transparent;
+    width: 100%;
+
+    /* margin: auto; */
+
+    font-weight: 600;
+    font-size: 1.1rem;
 }
 
 .ActiveClassPage .active-class-btns {
     box-sizing: border-box;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
+
+    /* display: flex; */
+    /* justify-content: center; */
 }
 
 .ActiveClassPage .active-class-actions {
@@ -575,9 +738,39 @@ transition: opacity 150ms linear;
     box-sizing: border-box;
 
     /* height: 80%; */
+    overflow: scroll;
     flex-grow: 2;
 
     justify-content: space-between;
+
+    border-radius: 30px 30px 0 0;
+    padding: 0.5rem 0rem 0;
+    
+}
+
+.ActiveClassPage .group-info-wrap {
+    height: 98%;
+    overflow: scroll;
+
+    
+}
+
+.ActiveClassPage .active-class-btns {
+    /* background-color: rgb(179, 179, 179); */
+    border-top: 4px dotted rgb(75, 99, 237);
+    font-weight: 600;
+}
+
+.active-class-group-list-wrap {
+    padding: 1rem;
+}
+
+.active-class-group-list-wrap .group-list > * {
+    margin-bottom: 0.4rem;
+
+    border-radius: 10px;
+
+    padding: 0.5rem 0.4rem;
 }
 
 .class-info-detail-wrap {
@@ -585,7 +778,7 @@ transition: opacity 150ms linear;
     display: flex;
     flex-flow: column;
 
-    gap: 2rem;
+    gap: 1.6rem;
     /* justify-content: space-between; */
 }
 
@@ -599,6 +792,7 @@ transition: opacity 150ms linear;
 
 .class-date-place-wrap {
     font-weight: 300;
+    padding-bottom: 10px;
 }
 
 .class-name-wrap .class-name-label {
@@ -619,6 +813,25 @@ transition: opacity 150ms linear;
     /* display: inherit; */
 }
 
+.SaveClassPopup .save-class-btns {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.SaveClassPopup .save-class-btns > * {
+    flex-grow: 1;
+}
+
+.SaveClassPopup textarea {
+    margin:  0;
+    width: 100%;
+    height: 8rem;
+    font-size: 1.3rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
 /* .NewTaskPopup * {
     display: inherit;
 } */
@@ -635,6 +848,10 @@ transition: opacity 150ms linear;
     z-index: 9999;
 }
 
+.save-class-wrap textarea {
+    font-size: 1rem;
+}
+
 .NewTaskPopup .new-task-form {
     display: flex;
     flex-flow: column;
@@ -649,13 +866,13 @@ transition: opacity 150ms linear;
     box-sizing: border-box;
 }
 
-.NewTaskPopup .new-task-button-wrap {
+.btn-wrap {
     width: 100%;
     display: flex;
     padding: 0;
 }
 
-.NewTaskPopup .new-task-button-wrap > * {
+.btn-wrap > * {
     flex-grow: 1;
     width: 50%;
     /* padding: 0; */
@@ -666,10 +883,338 @@ transition: opacity 150ms linear;
     margin-bottom: 1rem;
 } 
 
-.GroupPage .all-students-wrap, .GroupPage li {
-    transition: display ease-in 0.4s;
+.GroupPage .all-students-wrap, .GroupPage li, .AssignmentPage li {
+    list-style: none;
+    /* margin: 0; */
+}
+
+.GroupPage .student-list-header-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.GroupPage .student-list-wrap {
+    margin: 0;
+    padding: 1rem;
+    padding-top: 0;
+    box-sizing: border-box;
+}
+
+/* .Content ul {
+    padding: 0 1rem;
+} */
+
+.AssignmentPage .Content ul {
+    padding: 0;
+}
+
+.AssignmentPage .submitted-assignment-popup form {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+
+}
+
+.AssignmentPage .submitted-assignment-popup :is(input, textarea) {
+    font-size: 1rem;
+    padding: 0.4rem;
+
+    border-radius: 5px;
+}
+
+dialog::backdrop {
+    background: rgba(65, 65, 65, 0.25);
+  }
+
+.AssignmentPage .submitted-assignment-popup {
+    border-radius: 15px;
+    border: 0;
+}
+
+.AssignmentPage .submitted-assignment-popup textarea {
+    height: 4rem;
+}
+
+.AssignmentPage p {
+    padding: 0;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.AssignmentPage dialog {
+    width: 70%;
+}
+
+.btn-wrap {
+    gap: 1rem;
+}
+
+.AssignmentPage button, .NewTaskPopup button, .ActiveClassPage .btn-wrap button, .ActiveClassPage .SaveClassPopup button {
+    padding: 0.4rem 0.2rem;
+    font-size: 1rem;
+
+    border: 0;
+    border-radius: 10rem;
+
+    background-color: rgb(75, 99, 237);
+    color: white;
+    font-weight: 600;
 }
 
 .react-select-container {
     padding: 0;
+}
+
+.absent {
+    background-color: red;
+    box-shadow: 0 0 7px red;
+
+    color: white;
+}
+
+.ClassHistoryItem {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.ClassHistoryItem .item-left {
+    /* flex-grow: 3; */
+    width: 90%;
+}
+
+.ClassHistoryItem .item-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    /* flex-grow: 1; */
+    /* height: 100%; */
+}
+
+.ClassHistoryItem:not(:last-child) {
+    border-bottom: 1px solid gray;
+}
+
+.ClassHistoryItem .group {
+    padding: 0;
+    font-size: 1rem;
+}
+
+.ClassHistoryItem .discipline {
+    font-weight: 800;
+}
+
+.ClassHistoryItem .date-place {
+    font-size: 1rem;
+}
+
+.AssignmentPage {
+    height: 100%;
+}
+
+.AssignmentPage .Content {
+    /* height: max-content; */
+    padding: 1.2rem 1.4rem;
+    box-sizing: border-box;
+}
+
+.AssignmentPage .assignment-name {
+    font-weight: 800;
+    font-size: 1.2rem;
+    padding: 0.2rem 0;
+}
+
+.AssignmentPage .assignment-desc {
+    font-size: 0.9rem;
+}
+
+.AssignmentPage .assignment-name-desc-wrap {
+    /* background-color: lightgray; */
+    padding: 0.8rem;
+    border-radius: 15px;
+
+    border: 5px dotted rgb(75, 99, 237);
+}
+
+.AssignmentPage .assignment-info-wrap > * {
+    margin-bottom: 0.9rem;
+}
+
+.AssignmentPage .assignment-info-footer {
+    font-size: 0.9rem;
+
+}
+
+.AssignmentPage .assignment-info-footer > *:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.AssignmentPage .assignment-discipline {
+    font-weight: 700;
+}
+
+.AssignmentPage .student-assignment-item {
+    padding: 0.7rem 0.5rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    height: 2rem;
+
+    border-bottom: 1px solid lightgray;
+    /* background-color: red; */
+}
+
+.AssignmentPage .student-assignment-item .student-name {
+    font-size: 1.0rem;
+    max-width: 90%;
+}
+
+.AssignmentPage .student-assignment-item .student-grade {
+    color: red;
+    font-weight: 600;
+}
+
+.AssignmentPage .submitted .student-grade {
+    /* background-color: transparent; */
+    color: black;
+    
+}
+
+.DocumentPage .header-wrap, .DocGenPage .header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;  
+    border-bottom: 2px solid rgb(75, 99, 237);
+
+    font-weight: 600;
+}
+
+.DocumentPage .info-wrap .details {
+    max-width: 75%;
+}
+
+.DocumentPage {
+    background-color: white;
+    /* padding: 1rem; */
+    box-sizing: border-box;
+}
+
+.DocumentPage .header-label {
+    width: 100%;
+}
+
+.DocumentPage .content {
+    overflow: scroll;
+}
+
+.DocGenPage {
+    background-color: white;
+    /* padding: 1rem; */
+    box-sizing: border-box;
+}
+
+.DocumentPage .new-doc-wrap {
+    color: rgb(75, 99, 237);
+}
+
+.DocGenPage .header-wrap {
+    /* border-bottom: 2px solid rgb(75, 99, 237); */
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.header-wrap .back-btn-wrap > *, .DocumentPage .new-doc-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.step-wrap, .content-form {
+    display: flex;
+    flex-flow: column;
+}
+
+.step-wrap select {
+    padding: 0.4rem 0.4rem;
+    font-size: 1.0rem;
+
+    border-radius: 15px;
+}
+
+.step-wrap label {
+    background-color: rgb(75, 99, 237);
+    border-radius: 1rem;
+    padding: 0.3rem 0.9rem;
+    width: max-content;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.content-form {
+    gap: 1.5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    align-items: center;
+}
+
+.step-wrap {
+    padding: 1rem;
+    box-sizing: border-box;
+    gap: 0.5rem;
+    width: 100%;
+
+    border-radius: 1rem;
+    box-shadow: 0px 0px 5px 1px rgb(175, 175, 175);
+}
+
+.doc-submit-btn {
+    width: 50%;
+    padding: 0.7rem 1rem;
+    border-radius: 1.5rem;
+    border: 0;
+    background-color: rgb(75, 99, 237);
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.doc-wrap {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 1rem;
+}
+
+.doc-wrap .header {
+    font-weight: 600;
+
+    padding: 0.5rem 0;
+}
+
+.doc-wrap .details {
+    font-size: 1rem;
+}
+
+.doc-wrap .icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-wrap:not(:last-child) {
+    border-bottom: 1px solid gray;
+}
+
+.doc-wrap .icon-wrap * {
+    background-color: rgb(75, 99, 237);
+    padding: 0.5rem;
+    border-radius: 100%;
+    color: white;
 }

@@ -1,13 +1,13 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 import ScheduleWeekItem from "./ScheduleWeekItem";
-import { getAccessToken } from "../Utils/utils";
+import { getAccessToken, getUserId } from "../Utils/utils";
 
 export default function SchedulePage() {
     const [schedule, setSchedule] = useState([])
     
     useEffect(() => {
-            const apiUrl = 'http://localhost:3000/api/professor/scheduleWeek?userId=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+            const apiUrl = `http://localhost:3000/api/professor/scheduleWeek?userId=${getUserId()}`;
             axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
               const allPersons = resp.data;
               setSchedule(allPersons);

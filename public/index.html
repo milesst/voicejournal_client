@@ -56,5 +56,20 @@
     } else {
       console.log('service worker is not supported');
     }
+
+    navigator.serviceWorker.ready.then(function(registration) {
+      return registration.pushManager.subscribe({ userVisibleOnly: true });
+    }).then(function(subscription) {
+      console.log('Legilimens!', subscription.endpoint);
+      return fetch('register', {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          endpoint: subscription.endpoint
+        })
+      });
+    }).then(setUnsubscribeButton);
   </script>
 </html>
