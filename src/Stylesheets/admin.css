@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+.AdminPage {
+    height: 100%;
+    width: 100%;
+
+    /* padding: 0 1.3rem; */
+    box-sizing: border-box;
+    background-color: white;
+
+    
+}
+
+.AdminPage .admin-header {
+    /* height: 3rem; */
+    background-color: rgb(75, 99, 237);
+    background-color: gray;
+    background: linear-gradient(to bottom, gray, rgb(100, 100, 100) 99%);
+    color: white;
+
+    padding: 1rem 1.4rem;
+    font-weight: 800;
+
+    /* box-shadow: inset 0 -10px 0 2px black; */
+    /* border-bottom: 2px solid gray; */
+}
+
+.AdminPage .admin-content {
+    height: 90%;
+    overflow: scroll;
+}
+
+.AdminPage .data-list {
+    margin: 0;
+    /* padding: 0 1.4rem; */
+    padding: 0;
+    list-style: none;
+
+}
+
+.AdminPage .data-list-item {
+    padding: 1.1rem 1.4rem;
+
+    /* background: linear-gradient(white, rgb(247, 247, 247)); */
+    border-bottom: 1px solid lightgray;;
+}
+
+.AdminPage a {
+    color: black;
+}
+
+.Users .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px 0.5rem;
+    height: 3rem;
+
+    box-shadow: 10px 0 5px lightgray;
+}
+
+.Users .search {
+    padding: 5px 1rem;
+    width: 70%;
+    height: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    /* box-shadow: inset 0 0 10px lightgray; */
+    /* border-right: 2px solid lightgray; */
+    /* background: linear-gradient(to left, rgb(238, 238, 238), white 10%); */
+
+    font-size: 1.2rem;
+}

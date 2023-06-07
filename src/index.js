@@ -24,6 +24,9 @@ import AssignmentPage from './Assignments/AssignmentPage';
 import ClassHistoryPage from './ClassHistory/ClassHistoryPage';
 import DocumentPage from './Documents/DocumentPage';
 import DocGenPage from './Documents/DocGenPage';
+import { AdminPage } from './Administrator/AdminPage';
+import { Users } from './Administrator/Users';
+import { Home } from './Administrator/Home';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -93,6 +96,20 @@ const router = createBrowserRouter([
           {
             path: "newDocument",
             element: <DocGenPage />
+          },
+          {
+            path: "admin",
+            element: <AdminPage />,
+            children: [
+              {
+                path: "",
+                element: <Home />,
+              },
+              {
+                path: "users",
+                element: <Users />
+              }
+            ]
           }
         ]
       },
