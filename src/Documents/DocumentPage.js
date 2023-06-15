@@ -5,12 +5,13 @@ import { NavLink } from "react-router-dom";
 import { getAccessToken, getUserId } from "../Utils/utils";
 import axios from "axios";
 import { saveAs } from "file-saver";
+import { API } from "../Utils/api";
 
 export default function DocumentPage() {
     const [documents, setDocuments] = useState()
 
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/documents/documentList?userId=${getUserId()}`;
+        const apiUrl = `${API.BASE_URL}/api/documents/documentList?userId=${getUserId()}`;
         console.log(apiUrl)
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
@@ -20,7 +21,7 @@ export default function DocumentPage() {
       }, [setDocuments]);
 
     function downloadDocument(id) {
-        const apiUrl = `http://localhost:3000/api/documents/downloadDocument?docId=${id}`;
+        const apiUrl = `${API.BASE_URL}/api/documents/downloadDocument?docId=${id}`;
         console.log(apiUrl)
         axios.get(apiUrl, {
             headers: { Authorization: `Bearer ${getAccessToken()}` },

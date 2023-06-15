@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AiFillEdit, AiFillPlusCircle } from 'react-icons/ai'
 import { getAccessToken } from '../Utils/utils';
 import { ToolBar } from './ToolBar';
+import { API } from '../Utils/api';
 
 export function Users() {
     const [users, setUsers] = useState([])
@@ -13,7 +14,7 @@ export function Users() {
     const [searchData, setSearchData] = useState('')
     
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/admin/users`;
+        const apiUrl = `${API.BASE_URL}/api/admin/users`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const data = resp.data;
           setUsers(data);
@@ -23,7 +24,7 @@ export function Users() {
 
 
     function deleteUser() {
-        const apiUrl = `http://localhost:3000/api/admin/deleteUser?userId=${selectedUser.user_id}`;
+        const apiUrl = `${API.BASE_URL}/api/admin/deleteUser?userId=${selectedUser.user_id}`;
         axios.delete(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)
@@ -31,7 +32,7 @@ export function Users() {
     }  
 
     function updateUser() {
-        const apiUrl = `http://localhost:3000/api/admin/updateUser`;
+        const apiUrl = `${API.BASE_URL}/api/admin/updateUser`;
         axios.put(apiUrl, newUserData,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)

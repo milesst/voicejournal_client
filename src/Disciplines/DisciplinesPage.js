@@ -3,12 +3,13 @@ import DisciplineItem from "./DisciplineItem";
 import axios from "axios";
 import { getAccessToken, getUserId } from "../Utils/utils";
 import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
+import { API } from "../Utils/api";
 
 export default function DisciplinesPage() {
     const [disciplines, setDisciplines] = useState([])
 
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/professor/disciplineInfo?userId=${getUserId()}`;
+        const apiUrl = `${API.BASE_URL}/api/professor/disciplineInfo?userId=${getUserId()}`;
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           console.log(allPersons)

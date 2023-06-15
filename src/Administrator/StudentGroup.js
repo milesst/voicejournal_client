@@ -3,6 +3,8 @@ import { ToolBar } from "./ToolBar";
 import { getAccessToken } from './../Utils/utils';
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { API } from "../Utils/api";
+import { BASE_URL } from './../Utils/api';
 
 export default function StudentGroup() {
     let {groupId} = useParams()
@@ -15,7 +17,7 @@ export default function StudentGroup() {
     const [searchData, setSearchData] = useState('')
     
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/admin/students?groupId=${groupId}`;
+        const apiUrl = `${API.BASE_URL}/api/admin/students?groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const data = resp.data;
           setStudents(data);
@@ -25,7 +27,7 @@ export default function StudentGroup() {
 
 
     function deleteStudent() {
-        const apiUrl = `http://localhost:3000/api/admin/deleteStudent?userId=${selectedUser.user_id}`;
+        const apiUrl = `${API.BASE_URL}/api/admin/deleteStudent?userId=${selectedStudent.student_id}`;
         axios.delete(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)
@@ -33,7 +35,7 @@ export default function StudentGroup() {
     }  
 
     function updateStudent() {
-        const apiUrl = `http://localhost:3000/api/admin/updateStudent`;
+        const apiUrl = `${API.BASE_URL}/api/admin/updateStudent`;
         axios.put(apiUrl, newUserData,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)

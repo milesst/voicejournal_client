@@ -6,6 +6,7 @@ import { getAccessToken, getUserId } from "../Utils/utils";
 import { useParams } from "react-router-dom";
 import NewTaskPopup from "../Popup/NewTaskPopup";
 import { AiOutlineDown, AiOutlineLine } from "react-icons/ai";
+import { API } from "../Utils/api";
 
 export default function GroupPage() {
     const { groupId } = useParams()
@@ -25,7 +26,7 @@ export default function GroupPage() {
     }
 
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/professor/todayClasses?userId=${getUserId()}&groupId=${groupId}`;
+        const apiUrl = `${API.BASE_URL}/api/professor/todayClasses?userId=${getUserId()}&groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setClasses(allPersons);
@@ -34,7 +35,7 @@ export default function GroupPage() {
       }, [setClasses]);
 
       useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/professor/groupStudents?groupId=${groupId}`;
+        const apiUrl = `${API.BASE_URL}/api/professor/groupStudents?groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setStudents(allPersons);

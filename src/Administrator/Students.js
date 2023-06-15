@@ -4,6 +4,8 @@ import { AiFillEdit, AiFillPlusCircle, AiOutlineUnorderedList } from 'react-icon
 import { getAccessToken } from '../Utils/utils';
 import { ToolBar } from './ToolBar';
 import { NavLink } from 'react-router-dom';
+import { API } from '../Utils/api';
+import { BASE_URL } from './../Utils/api';
 
 export default function Students() {
     const [groups, setGroups] = useState([])
@@ -14,7 +16,7 @@ export default function Students() {
     const [searchData, setSearchData] = useState('')
     
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/admin/student_groups`;
+        const apiUrl = `${API.BASE_URL}/api/admin/student_groups`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const data = resp.data;
           setGroups(data);
@@ -24,7 +26,7 @@ export default function Students() {
 
 
     function deleteGroup() {
-        const apiUrl = `http://localhost:3000/api/admin/deleteStudentGroup?groupId=${selectedGroup.group_id}`;
+        const apiUrl = `${API.BASE_URL}/api/admin/deleteStudentGroup?groupId=${selectedGroup.group_id}`;
         axios.delete(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)
@@ -32,7 +34,7 @@ export default function Students() {
     }  
 
     function updateGroup() {
-        const apiUrl = `http://localhost:3000/api/admin/updateStudentGroup`;
+        const apiUrl = `${API.BASE_URL}/api/admin/updateStudentGroup`;
         axios.put(apiUrl, newUserData,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)

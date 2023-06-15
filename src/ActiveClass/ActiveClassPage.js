@@ -8,10 +8,11 @@ import SaveClassPopup from "../Popup/SaveClassPopup";
 import StudentList from "../Students/StudentList";
 import { ToastContainer, toast } from "react-toastify";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { API, BASE_URL } from './../Utils/api';
 
 function saveSubmission(data) {
   console.log(data)
-  const apiUrl = `http://localhost:3000/api/professor/completedAssignment`
+  const apiUrl = `${API.BASE_URL}/api/professor/completedAssignment`
   // if (selectedStudent.completionId) {
   //     console.log(axios.put(apiUrl, data, {headers: { Authorization: `Bearer ${getAccessToken()}` }}))
 
@@ -186,7 +187,7 @@ export default function ActiveClassPage(props) {
 
   useEffect(() => {
     if (!localStorage.getItem('activeClassStudents')) {
-        const apiUrl = `http://localhost:3000/api/professor/groupStudents?groupId=${classInfo.group_id}`;
+        const apiUrl = `${API.BASE_URL}/api/professor/groupStudents?groupId=${classInfo.group_id}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           for (let i of allPersons) {

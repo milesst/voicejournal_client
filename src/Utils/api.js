@@ -1,5 +1,5 @@
 import { getUserId } from "./utils";
-const BASE_URL = "http://localhost:3000/"
+export const BASE_URL = process.env.REACT_APP_SERVER_API_URL
 
 export const API = {
     USER_LOGIN: BASE_URL + "login",

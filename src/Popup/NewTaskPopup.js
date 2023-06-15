@@ -3,6 +3,7 @@ import axios from "axios";
 import { getAccessToken } from "../Utils/utils";
 import Select from "react-select";
 import { getUserId } from "../Utils/utils";
+import { API } from "../Utils/api";
 
 export default function NewTaskPopup(props) {
     const [disciplines, setDisciplines] = useState()
@@ -69,7 +70,7 @@ export default function NewTaskPopup(props) {
     }
 
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
+        const apiUrl = `${API.BASE_URL}/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
     

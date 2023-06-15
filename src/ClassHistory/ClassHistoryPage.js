@@ -4,6 +4,7 @@ import axios from "axios";
 import { getAccessToken } from "../Utils/utils";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getUserId } from "../Utils/utils";
+import { API } from "../Utils/api";
 
 export default function ClassHistoryPage() {
     const [classes, setClasses] = useState()
@@ -13,7 +14,7 @@ export default function ClassHistoryPage() {
     const [filterParams, setFilterParams] = useState(location.state)
 
     useEffect(() => {
-        let apiUrl = `http://localhost:3000/api/professor/completedClasses?userId=${getUserId()}`
+        let apiUrl = `${API.BASE_URL}/api/professor/completedClasses?userId=${getUserId()}`
         if (filterParams.disciplineId) {
             apiUrl = apiUrl + `&disciplineId=${filterParams.disciplineId}`
         }

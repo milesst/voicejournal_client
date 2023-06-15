@@ -4,6 +4,7 @@ import { NavLink, Navigate, redirect } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, getUserId, isAdmin } from "../Utils/utils";
 import { ToastContainer, toast } from "react-toastify";
+import { API } from "../Utils/api";
 
 export default function ProfilePage() {
     const [user, setUser] = useState({})
@@ -52,7 +53,7 @@ export default function ProfilePage() {
     //   };
 
     useEffect(() => {
-            const apiUrl = `http://localhost:3000/api/professor/personalData?userId=${getUserId()}`;
+            const apiUrl = `${API.BASE_URL}/api/professor/personalData?userId=${getUserId()}`;
             axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
               const allPersons = resp.data;
               console.log(allPersons)

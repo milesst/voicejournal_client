@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import Toggle from 'react-toggle';
 import "react-toggle/style.css"
+import { API } from '../Utils/api';
 
 function urlB64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -52,13 +53,13 @@ export default function SettingsPage(props) {
         userVisibleOnly: true,
         applicationServerKey: urlB64ToUint8Array(process.env.REACT_APP_VAPID_PUBLIC_KEY)
         });
-        axios.post('http://localhost:3000/api/notification/addSubscription', subscription)
+        axios.post(`${API.BASE_URL}/api/notification/addSubscription`, subscription)
         setSubscribed(subscription)
         toast.success('Уведомления включены!')
     } 
 
     async function unsubscribe() {
-        axios.post('http://localhost:3000/api/notification/removeSubscription', {endpoint: subscribed.endpoint})
+        axios.post(`${API.BASE_URL}/api/notification/removeSubscription`, {endpoint: subscribed.endpoint})
         const unsubscribed = await subscribed.unsubscribe();
         if (unsubscribed) {
         console.info('Successfully unsubscribed from push notifications.');
@@ -68,7 +69,7 @@ export default function SettingsPage(props) {
     }
 
     async function notif() {
-        axios.post('http://localhost:3000/api/notification/sendNotification', {endpoint: subscribed.endpoint})
+        axios.post(`${API.BASE_URL}/api/notification/sendNotification`, {endpoint: subscribed.endpoint})
 
     }
 
