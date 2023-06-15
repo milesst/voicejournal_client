@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM node:16-alpine
 
-RUN mkdir -p /app/
+ENV REACT_APP_SERVER_API_URL=https://voicejournal-server.onrender.com
 WORKDIR /app/
 COPY . .
 RUN npm ci
