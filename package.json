@@ -26,6 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start -r dotenv/config",
+    "start-local": "REACT_APP_SERVER_API_URL=http://localhost:3000 react-scripts start -r dotenv/config", 
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
