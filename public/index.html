@@ -41,35 +41,17 @@
     -->
   </body>
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-          // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
-        }).catch(function(err) {
-          console.log(err)
-        });
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker.register('./service-worker.js').then(serviceWorkerRegistration => {
+        console.info('Service worker was registered.');
+        console.info({serviceWorkerRegistration});
+      }).catch(error => {
+        console.error('An error occurred while registering the service worker.');
+        console.error(error);
       });
     } else {
-      console.log('service worker is not supported');
+      console.error('Browser does not support service workers or push messages.');
     }
-
-    navigator.serviceWorker.ready.then(function(registration) {
-      return registration.pushManager.subscribe({ userVisibleOnly: true });
-    }).then(function(subscription) {
-      console.log('Legilimens!', subscription.endpoint);
-      return fetch('register', {
-        method: 'post',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          endpoint: subscription.endpoint
-        })
-      });
-    }).then(setUnsubscribeButton);
+    
   </script>
 </html>

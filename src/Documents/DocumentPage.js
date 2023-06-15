@@ -4,6 +4,7 @@ import {AiFillPlusCircle} from 'react-icons/ai'
 import { NavLink } from "react-router-dom";
 import { getAccessToken, getUserId } from "../Utils/utils";
 import axios from "axios";
+import { saveAs } from "file-saver";
 
 export default function DocumentPage() {
     const [documents, setDocuments] = useState()
@@ -24,15 +25,24 @@ export default function DocumentPage() {
         axios.get(apiUrl, {
             headers: { Authorization: `Bearer ${getAccessToken()}` },
             responseType: 'blob'}).then((resp) => {
-        const allPersons = resp.data;
-        console.log(resp.data)
+                // console.log(resp)
+                // saveAs(new Blob(resp.data.doc), 'Ведомость.docx')
+                const url = window.URL.createObjectURL(new Blob([resp.data], {type: "application/docx"}));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Ведомость.docx');
+            document.body.appendChild(link);
+            link.click();
+        // const allPersons = resp.data;
+        // console.log(resp.data)
 
-        const url = window.URL.createObjectURL(new Blob([resp.data.doc]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'generate2.docx');
-        document.body.appendChild(link);
-        link.click();
+        // const url = window.URL.createObjectURL(new Blob([resp.data.doc]));
+        // const link = document.createElement('a');
+        // link.href = url;
+        // link.setAttribute('download', 'generate2.docx');
+        // document.body.appendChild(link);
+        // link.click();
+        
 
         console.log(resp)
         });

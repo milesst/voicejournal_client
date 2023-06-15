@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DisciplineItem from "./DisciplineItem";
 import axios from "axios";
 import { getAccessToken, getUserId } from "../Utils/utils";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 export default function DisciplinesPage() {
     const [disciplines, setDisciplines] = useState([])
@@ -21,7 +22,10 @@ export default function DisciplinesPage() {
                 <div className="content-header-label">Дисциплины</div>
             </div>
             <div className="Content">
-                {disciplines.map(item => <DisciplineItem disciplineId={item.discipline_id} assignments={item.assignments} groups={item.groups} discipline={item.discipline} startDate={item.disciplineStart} endDate={item.disciplineEnd} />)}
+                { disciplines.length > 0 ? 
+                disciplines.map(item => <DisciplineItem disciplineId={item.discipline_id} assignments={item.assignments} groups={item.groups} discipline={item.discipline} startDate={item.disciplineStart} endDate={item.disciplineEnd} />)
+                : <TailSpin stroke='orange' speed={.75} />
+                }         
             </div>
         </div>
     )

@@ -4,6 +4,7 @@ import { getAccessToken, getUserId } from "../Utils/utils"
 import { NavLink, useNavigate } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { API } from "../Utils/api"
+import Select from "react-select";
 
 export default function DocGenPage() {
     const [docType, setDocType] = useState('ved')
@@ -29,27 +30,26 @@ export default function DocGenPage() {
       }, [setDisciplines, setGroup]);
 
     function handleChangeDocType(e) {
-        setDocType(e.target.value)
-        console.log('fewf')
+        setDocType(e.value)
+        console.log(e.value)
     }
 
     function handleChangeDiscipline(e) {
-        setDiscipline(e.target.value)
-        console.log(e.target.value)
+        setDiscipline(disciplines.find(item => item.discipline_id === e.value))
+        console.log(e)
     }
 
     function handleChangeGroup(e) {
-        setGroup(e.target.value)
-        console.log(e.target.value)
+        setGroup(e.value)
+        console.log(e.value)
     }
 
     function handleChangeSemester(e) {
-        setSemester(e.target.value)
+        setSemester(e.value)
     }
 
     function getDocument(e) {
         e.preventDefault()
-        console.log('few')
         const apiUrl = API.DOC_GENERATE
         const docData = {
             docType,
@@ -59,6 +59,7 @@ export default function DocGenPage() {
             semester,
             userId: getUserId(),
         }
+        console.log(docData)
 
         axios.post(apiUrl, docData, {headers: { Authorization: `Bearer ${getAccessToken()}` },  responseType: 'blob'})
         .then((response) => {
@@ -81,30 +82,18 @@ export default function DocGenPage() {
             </div>
             <form className="content-form" onSubmit={getDocument}>
                 <div className="step-wrap">
-                    <label htmlFor="">Тип документа</label>
-                    <select name="doc-type" id="" defaultValue={'ved'} onInput={handleChangeDocType} onChange={handleChangeDocType}>
-                        <option value="ved">Ведомость</option>
-                    </select>
+                    <Select placeholder='Тип документа' required name="doc-type" onChange={handleChangeDocType} options={[{value: 'ved', label: 'Ведомость'}]} />
                 </div>
                 <div className="step-wrap">
-                    <label htmlFor="">Дисциплина</label>
-                    <select required name="disciplines" id="" onChange={handleChangeDiscipline}>
-                            {disciplines.map(discipline => <option value={{discipline_id: discipline.discipline_id, discipline: discipline.discipline}} key={discipline.discipline_id}>{discipline.discipline}</option>)}
-                    </select>
+                    <Select required className="react-select-container" name="disciplines" onChange={handleChangeDiscipline} placeholder='Дисциплина' options={disciplines.map(discipline => {return {"value": discipline.discipline_id, 'label': discipline.discipline }})}/>
                 </div>
                 <div className="step-wrap">
-                    <label htmlFor="">Группа</label>
-                    <select required name="groups" id="" onChange={handleChangeGroup}>
-                        {disciplines && discipline ? disciplines.find(selected => selected.discipline_id === discipline.discipline_id)
+                    <Select required className="react-select-container" name="groups" onChange={handleChangeGroup} placeholder='Группа' options={disciplines && discipline ? disciplines.find(selected => selected.discipline_id === discipline.discipline_id)
                             .groups
-                            .map(group => <option value={group.group_id}>{group.group_number}</option>) : ''}
-                    </select>
+                            .map(group => {return {'value': group.group_id, 'label': group.group_number}}) : ''}/>
                 </div>
                 <div className="step-wrap">
-                    <label htmlFor="">Семестр</label>
-                    <select name="semester" id="" onChange={handleChangeSemester}>
-                        <option value="0">Текущий семестр</option>
-                    </select>
+                    <Select required placeholder='Период' onChange={handleChangeSemester} options={[{value: '0', label: 'Текущий семестр'}]}/>
                 </div>
                 <button type="submit" className="doc-submit-btn">Создать</button>
             </form> 

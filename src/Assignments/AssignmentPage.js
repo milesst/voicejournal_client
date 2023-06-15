@@ -1,8 +1,9 @@
 import axios, { all } from "axios";
 import { useEffect, useRef, useState } from "react"
-import { useParams, useSearchParams } from "react-router-dom"
+import { NavLink, useParams, useSearchParams } from "react-router-dom"
 import { getAccessToken, parseDateFromJSONDate } from "../Utils/utils";
 import { ToastContainer, toast } from "react-toastify";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function AssignmentPage() {
     let {id} = useParams()
@@ -103,7 +104,7 @@ export default function AssignmentPage() {
                 </form>
                 </dialog>
             <div className="ContentHeader">
-                <div className="content-header-label">Задание</div>
+               {localStorage.getItem('activeClass') ? <NavLink className="back-to-class-btn" to="/activeClass"><AiOutlineArrowLeft /></NavLink> : ''} <div className="content-header-label">Задание</div>
             </div>
             <div className="Content">
                 

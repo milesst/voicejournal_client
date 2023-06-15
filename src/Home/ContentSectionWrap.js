@@ -1,4 +1,8 @@
 import {AiFillPlusCircle} from 'react-icons/ai'
+import Puff from 'react-loading-icons/dist/esm/components/puff'
+import SpinningCircles from 'react-loading-icons/dist/esm/components/spinning-circles'
+import TailSpin from 'react-loading-icons/dist/esm/components/tail-spin'
+import ThreeDots from 'react-loading-icons/dist/esm/components/three-dots'
 import { NavLink } from 'react-router-dom'
 
 export default function ContentSectionWrap(props) {
@@ -11,7 +15,8 @@ export default function ContentSectionWrap(props) {
                 <AiFillPlusCircle size={'1.5rem'} /></div>
                 </div>
             <div style={{display: (props.contentLabel === 'Документы и отчеты' ? 'none' : 'block')}} className="content-section-content">
-                { props.contentLabel !== 'Документы и отчеты' ?
+                { 
+                !props.classes && !props.tasks ? <TailSpin stroke='orange' speed={.75}  /> :
                 props.classes && props.classes.length > 0 ? props.classes.map(item => <div className='home-discipline-item' onClick={() => props.buttonAction(item.schedule_id)}>
                     <div className="home-discipline-item-header">
                         <div className="home-discipline-item-time">{item.time.substring(0, 5)}</div>
@@ -22,9 +27,9 @@ export default function ContentSectionWrap(props) {
                         <div className="home-discipline-item-groups">гр. {item.group_number}</div>
                     </div>
                     </div>) :
-                    props.classes !== undefined ?
+                props.classes && props.classes.length === 0 ?
                     `Сегодня у Вас нет занятий` :
-                    props.tasks ? props.tasks.map(item => <NavLink className="content-section-navlink" to={`/assignments/${item.assignment_id}`}><div className='assignment-item'>
+                props.tasks && props.tasks.length > 0 ? props.tasks.map(item => <NavLink className="content-section-navlink" to={`/assignments/${item.assignment_id}`}><div className='assignment-item'>
                         <div className="assignment-item-info">
                         <div className="assignment-item-name">{item.name}</div>
                         <div className="assignment-item-description">{item.discipline_name}, гр. {item.group_number}</div></div>
@@ -34,11 +39,12 @@ export default function ContentSectionWrap(props) {
                         </div>
                     </div></NavLink>) 
                     :
+                    props.tasks && props.tasks.length === 0 ?
                      `Сегодня у Вас нет дедлайнов по заданиям`
                     :
                     props.contentLabel === 'Документы и отчеты' ? 
                         <div className="home-documents-wrap"></div>
-                    : ''
+                    :  <TailSpin stroke='orange' speed={.75}  />
                 }   
             </div>
         </div>

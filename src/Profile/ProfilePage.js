@@ -2,7 +2,7 @@ import axios, { all } from "axios";
 import { useState, useEffect } from "react";
 import { NavLink, Navigate, redirect } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
-import { getAccessToken, getUserId } from "../Utils/utils";
+import { getAccessToken, getUserId, isAdmin } from "../Utils/utils";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function ProfilePage() {
@@ -70,7 +70,8 @@ export default function ProfilePage() {
             <div className="user-name-wrap">{user.last_name} {user.first_name} {user.patronymic}</div>
             <ul className="menu-wrap">
                {/* <li></li> */}
-               <NavLink><li>Настройки приложения</li></NavLink>
+               <NavLink to="/settings"><li>Настройки приложения</li></NavLink>
+               {isAdmin() ? <NavLink to="/admin"><li>Панель администратора</li></NavLink> : ''}
                <NavLink to="/login"><li onClick={logout}>Выйти</li> </NavLink> 
                {/* <li><a onClick={subscribe}>Уведомления</a></li> */}
             </ul>

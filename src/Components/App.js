@@ -22,56 +22,92 @@ import LoginPage from "../Login/LoginPage";
 //     }
 //   }
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { API } from "../Utils/api";
+import { getAccessToken } from "../Utils/utils";
+import axios from "axios";
   
 export default function App() {
     const navigate = useNavigate()
-    SpeechRecognition.lang = "ru-RU"
-    
-    const сommands = [
-            // {
-            //     command: 'дисциплины',
-            //     callback: (command) => { console.log('disci') }
-            // },
-            // {
-            //     command: 'расписание',
-            //     callback: (command) => navigate('/schedule')
-            // },
-            // {
-            //     command: 'главная|основная|домашняя',
-            //     callback: (command) => navigate('/')
-            // },
-            // {
-            //     command: 'профиль',
-            //     callback: (command) => navigate('/profile')
-    
-            // },
-            // {
-            //     command: 'начать пару|пара|новая пара|занятие|новое занятие|начать занятие',
-            //     callback: (command) => navigate('/activeClass')
-            // }
+    const commands = [
+            {
+                command: ['дисциплины', 'группы'],
+                callback: () => { navigate('/disciplines') },
+                isFuzzyMatch: true,
+                fuzzyMatchingThreshold: 0.6,
+            },
+            {
+                command: ['расписание'],
+                callback: () => { navigate('/schedule') },
+                isFuzzyMatch: true,
+                fuzzyMatchingThreshold: 0.6,
+            },
+            {
+                command: ['настройки'],
+                callback: () => { navigate('/settings') },
+                isFuzzyMatch: true,
+                fuzzyMatchingThreshold: 0.6,
+            },
+            {
+                command: ['главная', 'домашняя'],
+                callback: () => { navigate('/') },
+                isFuzzyMatch: true,
+                fuzzyMatchingThreshold: 0.6,
+            },
+            {
+                command: ['начать пару', 'новая пара', 'начать занятие', 'новое занятие'],
+                callback: () => { 
+                    axios.get(API.GET_CURRENT_CLASS,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
+                        const data = resp.data[0]
+                        if (data) {                      
+                            localStorage.setItem('activeClass', JSON.stringify({
+                            data
+                            }))
+                            navigate(`activeClass`, { state: data })
+                        } 
+                    }).catch((e) => alert('error'))
+                },
+                isFuzzyMatch: true,
+                fuzzyMatchingThreshold: 0.8,
+            },
+            {
+                command: ['закончить пару с комментарием *'],
+                callback: (comment) => { console.log('comment: ' + comment) },
+                isFuzzyMatch: true,
+                fuzzyMatchingThreshold: 0.6,
+            },
     ]
     const {
-        transcript,
-        resetTranscript,
-      } = useSpeechRecognition({ сommands });
+      transcript,
+      interimTranscript,
+      finalTranscript,
+      resetTranscript,
+      listening,
+      } = useSpeechRecognition({ commands })
 
-        // SpeechRecognition.startListening( {
-        //     continuous: true,
-        //     language:'ru-RU'
-            
-        // })
-//     const listenContinuously = () => {
-//             SpeechRecognition.startListening({
-//               continuous: true,
-//               language: 'ru-RU',
-//             });
-//           };
+    useEffect(() => {
+        if (finalTranscript !== '') {
+         console.log('Got final result:', finalTranscript)
+        }
+    }, [interimTranscript, finalTranscript])
 
-// listenContinuously()
+    if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+      return null;
+    }
+   
+    if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+      console.log('Your browser does not support speech recognition software! Try Chrome desktop, maybe?');
+    }
+    const listenContinuously = () => {
+      SpeechRecognition.startListening({
+        continuous: true,
+        language: 'ru-RU',
+      });
+    };
 
-      useEffect( () => {
-        console.log(transcript)
-      }, [transcript])
+   if (localStorage.getItem('voiceSystemActive') === '1') {
+      listenContinuously()
+   }
+    
 
     return (
         <div className="App">

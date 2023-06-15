@@ -2,6 +2,9 @@ import { NavLink } from "react-router-dom";
 import {AiFillClockCircle, AiOutlineClockCircle, AiOutlineHistory} from 'react-icons/ai'
 
 export default function DisciplineItem(props) {
+    const itemStyle = (i) => {return { backgroundColor: `hsl(${(i+2)*50}, 100%, 46%)`}}
+    // const itemStyle = (i) => {return { backgroundColor: "black"}}
+
     return (
         <div className="DisciplineItem">
             <div className="discipline-name">
@@ -10,7 +13,9 @@ export default function DisciplineItem(props) {
             </div>
             <div className="discipline-period">{new Date(props.startDate).toLocaleDateString()} — {new Date(props.endDate).toLocaleDateString()}</div>
             <div className="discipline-groups">
-                {props.groups.map(item => <NavLink to={`/groups/${item.group_id}`}><div className='student-group-item' id={item.group_id}>{item.group_number}</div></NavLink>)}
+                {props.groups.map(item => <NavLink to={`/groups/${item.group_id}`}>
+                    <div style={itemStyle(props.groups.indexOf(item))} className='student-group-item' id={item.group_id}>{item.group_number}</div
+                    ></NavLink>)}
             </div>
             <div style={{display: (props.assignments.length > 0 ? 'block' : 'none')}} className="discipline-assignments">
                 <div style={{display: (props.assignments.length > 0 ? 'block' : 'none')}} className="assignments-label">Задания</div>

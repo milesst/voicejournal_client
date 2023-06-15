@@ -17,3 +17,8 @@ export function parseDateFromJSONDate(date) {
     if (!date) return null
     return date.split('T')[0]
 }
+
+export function isAdmin() {
+    const json = JSON.parse(localStorage.getItem('token'))
+    return Boolean(json['isAdmin'])
+}

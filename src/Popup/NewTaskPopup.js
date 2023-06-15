@@ -35,6 +35,7 @@ export default function NewTaskPopup(props) {
                 disciplineId: discipline,
                 groupId: group,
                 name: name,
+                professorId: getUserId(),
                 description: description,
                 startDate: startDate,
                 deadline: deadline
@@ -81,7 +82,14 @@ export default function NewTaskPopup(props) {
             <div className="new-task-wrap">
                 <h3>Новое задание</h3>
                 <form className="new-task-form" onSubmit={inputChangeHandler}>
-                    <Select placeholder={'Дисциплина'} className="react-select-container" onChange={handleChangeDiscipline} options={disciplines ? disciplines.map(item => {return {'label': item.discipline, 'value': JSON.stringify(item)} }) : []} />
+                    <Select
+                    // styles={{
+                    //     control: (baseStyles, state) => ({
+                    //       ...baseStyles,
+                    //       borderRadius: "50px"
+                    //     }),
+                    //   }} 
+                    placeholder={'Дисциплина'} className="react-select-container" onChange={handleChangeDiscipline} options={disciplines ? disciplines.map(item => {return {'label': item.discipline, 'value': JSON.stringify(item)} }) : []} />
                     <Select placeholder='Группа' className="react-select-container" onChange={handleChangeGroup} options={selectedDiscipline ? JSON.parse(selectedDiscipline['value'])['groups'].map(item => {return {'label': item.group_number, 'value': item.group_id} }) : []} />
                     <input name='name' onChange={handleChangeName} type="text" placeholder="Название" required />
                     <textarea name='description' onChange={handleChangeDesc} type="text" placeholder="Описание"/>

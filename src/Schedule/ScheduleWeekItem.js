@@ -1,6 +1,7 @@
 import { useState } from "react"
 import ScheduleWeekClass from "./ScheduleWeekClass"
 import { useEffect } from "react";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 export default function ScheduleWeekItem(props) {
     const [selectedClass, setSelectedClass] = useState(0)
@@ -45,6 +46,7 @@ export default function ScheduleWeekItem(props) {
             //   props.content.map( item =>
             //     <ScheduleWeekClass content={item} index={props.content.indexOf(item)} selected={props.content.indexOf(item) === selectedClass} selectClass={() => selectClass(props.content.indexOf(item))}/>
             //     )
+            //   : props.content === undefined ? <TailSpin stroke='orange' speed={.75} /> 
               : '' 
               }
 </div>

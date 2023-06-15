@@ -90,6 +90,20 @@ a {
 
     position: relative;
     z-index: 9999;
+
+}
+
+.ContentHeader {
+    display: flex;
+    align-items: center;
+}
+
+.back-to-class-btn {
+    padding-left: 20px;
+    color: white;
+    font-weight: 800;
+
+    font-size: 1.3rem;
 }
 
 .ActiveClassPage .group-list > * {
@@ -319,6 +333,18 @@ transition: opacity 150ms linear;
     gap: 10px; */
 }
 
+.home-active-class-btn {
+    width: 100%;
+    background-color: orange;
+    color: white;
+    border: 0;
+    border-radius: 50rem;
+
+    text-align: left;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+}
+
 .HomePage .content-section-wrap {
     padding: 1.4rem 20px;
     box-sizing: border-box;
@@ -326,6 +352,10 @@ transition: opacity 150ms linear;
     display: flex;
     flex-flow: column;
     gap: 10px;
+}
+
+.content-section-content > svg {
+    padding: 0 40%;
 }
 
 .ContentSectionWrap {
@@ -495,10 +525,10 @@ transition: opacity 150ms linear;
 }
 
 .student-group-item {
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
     padding: 5px 10px;
     border-radius: 2rem;
-    color: brown;
+    color: white;
 }
 
 .SchedulePage, .GroupPage, .page-wrap {
@@ -842,10 +872,15 @@ transition: opacity 150ms linear;
     background-color: white;
 
     border-radius: 1rem;
-    padding: 1rem 1.3rem;
+    padding: 1.2rem;
     box-sizing: border-box;
 
     z-index: 9999;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
 }
 
 .save-class-wrap textarea {
@@ -858,6 +893,7 @@ transition: opacity 150ms linear;
     gap: 1rem;
 
     font-size: 1.9rem;
+    padding: 0;
 }
 
 .NewTaskPopup >  * > * > * {
@@ -1129,6 +1165,10 @@ dialog::backdrop {
     gap: 1rem;
 }
 
+.DocGenPage .react-select-container > * {
+    font-size: 1.1rem;
+}
+
 .header-wrap .back-btn-wrap > *, .DocumentPage .new-doc-wrap {
     display: flex;
     align-items: center;
@@ -1217,4 +1257,25 @@ dialog::backdrop {
     padding: 0.5rem;
     border-radius: 100%;
     color: white;
+}
+
+.SettingsPage {
+    height: 100%;
+    background-color: white;
+}
+
+.SettingsPage .notif-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem 1.3rem;
+    box-sizing: border-box;
+}
+
+.settings-header {
+    padding: 1.3rem;
+    background-color: gray;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
 }

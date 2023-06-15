@@ -25,7 +25,7 @@ export default function GroupPage() {
     }
 
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/api/professor/todayClasses?userId=${getUserId()}`;
+        const apiUrl = `http://localhost:3000/api/professor/todayClasses?userId=${getUserId()}&groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setClasses(allPersons);

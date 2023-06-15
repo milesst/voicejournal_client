@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './Stylesheets/professor-style.css';
+import './Stylesheets/admin.css';
 import './Stylesheets/index.css';
 import BaseWrap from './BaseWrap/BaseWrap.js';
 import reportWebVitals from './reportWebVitals';
@@ -27,6 +28,10 @@ import DocGenPage from './Documents/DocGenPage';
 import { AdminPage } from './Administrator/AdminPage';
 import { Users } from './Administrator/Users';
 import { Home } from './Administrator/Home';
+import Students from './Administrator/Students';
+import StudentGroup from './Administrator/StudentGroup';
+import SettingsPage from './Settings/SettingsPage';
+import axios from 'axios';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -108,8 +113,20 @@ const router = createBrowserRouter([
               {
                 path: "users",
                 element: <Users />
+              },
+              {
+                path: "students",
+                element: <Students />,
+              },
+              {
+                path: "students/list/:groupId",
+                element: <StudentGroup />
               }
             ]
+          },
+          {
+            path: "settings",
+            element: <SettingsPage />
           }
         ]
       },
@@ -120,6 +137,8 @@ const router = createBrowserRouter([
     element: <LoginPage />
   }
 ]);
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode> 
