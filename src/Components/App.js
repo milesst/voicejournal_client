@@ -23,7 +23,7 @@ import LoginPage from "../Login/LoginPage";
 //   }
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { API } from "../Utils/api";
-import { getAccessToken } from "../Utils/utils";
+import { getAccessToken, getUserId } from "../Utils/utils";
 import axios from "axios";
   
 export default function App() {
@@ -56,7 +56,7 @@ export default function App() {
             {
                 command: ['начать пару', 'новая пара', 'начать занятие', 'новое занятие'],
                 callback: () => { 
-                    axios.get(API.GET_CURRENT_CLASS,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
+                    axios.get(`${API.GET_CURRENT_CLASS}/?userId=${getUserId()}`,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
                         const data = resp.data[0]
                         if (data) {                      
                             localStorage.setItem('activeClass', JSON.stringify({
