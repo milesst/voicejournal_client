@@ -17,7 +17,7 @@ export default function DocGenPage() {
     const [disciplines, setDisciplines] = useState([])
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
+        const apiUrl = `${BASE_URL}/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
         console.log(apiUrl)
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;

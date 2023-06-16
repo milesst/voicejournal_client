@@ -19,7 +19,7 @@ export default function AssignmentPage() {
     const [selectedStudent, setSelectedStudent] = useState({})
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/assignment?assignmentId=${id}`;
+        const apiUrl = `${BASE_URL}/api/professor/assignment?assignmentId=${id}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setAssignment(allPersons);
@@ -53,7 +53,7 @@ export default function AssignmentPage() {
         if (selectedStudent.completionId)
             data.completionId = selectedStudent.completionId
         console.log(data)
-        const apiUrl = `${API.BASE_URL}/api/professor/completedAssignment`
+        const apiUrl = `${BASE_URL}/api/professor/completedAssignment`
         if (selectedStudent.completionId) {
             console.log(axios.put(apiUrl, data, {headers: { Authorization: `Bearer ${getAccessToken()}` }}))
 

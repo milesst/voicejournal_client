@@ -12,7 +12,7 @@ import { API, BASE_URL } from './../Utils/api';
 
 function saveSubmission(data) {
   console.log(data)
-  const apiUrl = `${API.BASE_URL}/api/professor/completedAssignment`
+  const apiUrl = `${BASE_URL}/api/professor/completedAssignment`
   // if (selectedStudent.completionId) {
   //     console.log(axios.put(apiUrl, data, {headers: { Authorization: `Bearer ${getAccessToken()}` }}))
 
@@ -187,7 +187,7 @@ export default function ActiveClassPage(props) {
 
   useEffect(() => {
     if (!localStorage.getItem('activeClassStudents')) {
-        const apiUrl = `${API.BASE_URL}/api/professor/groupStudents?groupId=${classInfo.group_id}`;
+        const apiUrl = `${BASE_URL}/api/professor/groupStudents?groupId=${classInfo.group_id}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           for (let i of allPersons) {

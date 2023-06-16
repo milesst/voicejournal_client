@@ -8,7 +8,7 @@ export default function SchedulePage() {
     const [schedule, setSchedule] = useState([])
     
     useEffect(() => {
-            const apiUrl = `${API.BASE_URL}/api/professor/scheduleWeek?userId=${getUserId()}`;
+            const apiUrl = `${BASE_URL}/api/professor/scheduleWeek?userId=${getUserId()}`;
             axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
               const allPersons = resp.data;
               setSchedule(allPersons);

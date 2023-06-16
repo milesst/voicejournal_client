@@ -14,7 +14,7 @@ export default function ClassHistoryPage() {
     const [filterParams, setFilterParams] = useState(location.state)
 
     useEffect(() => {
-        let apiUrl = `${API.BASE_URL}/api/professor/completedClasses?userId=${getUserId()}`
+        let apiUrl = `${BASE_URL}/api/professor/completedClasses?userId=${getUserId()}`
         if (filterParams.disciplineId) {
             apiUrl = apiUrl + `&disciplineId=${filterParams.disciplineId}`
         }

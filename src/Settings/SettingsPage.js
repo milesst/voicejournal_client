@@ -53,13 +53,13 @@ export default function SettingsPage(props) {
         userVisibleOnly: true,
         applicationServerKey: urlB64ToUint8Array(process.env.REACT_APP_VAPID_PUBLIC_KEY)
         });
-        axios.post(`${API.BASE_URL}/api/notification/addSubscription`, subscription)
+        axios.post(`${BASE_URL}/api/notification/addSubscription`, subscription)
         setSubscribed(subscription)
         toast.success('Уведомления включены!')
     } 
 
     async function unsubscribe() {
-        axios.post(`${API.BASE_URL}/api/notification/removeSubscription`, {endpoint: subscribed.endpoint})
+        axios.post(`${BASE_URL}/api/notification/removeSubscription`, {endpoint: subscribed.endpoint})
         const unsubscribed = await subscribed.unsubscribe();
         if (unsubscribed) {
         console.info('Successfully unsubscribed from push notifications.');
@@ -69,7 +69,7 @@ export default function SettingsPage(props) {
     }
 
     async function notif() {
-        axios.post(`${API.BASE_URL}/api/notification/sendNotification`, {endpoint: subscribed.endpoint})
+        axios.post(`${BASE_URL}/api/notification/sendNotification`, {endpoint: subscribed.endpoint})
 
     }
 

@@ -26,7 +26,7 @@ export default function GroupPage() {
     }
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/todayClasses?userId=${getUserId()}&groupId=${groupId}`;
+        const apiUrl = `${BASE_URL}/api/professor/todayClasses?userId=${getUserId()}&groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setClasses(allPersons);
@@ -35,7 +35,7 @@ export default function GroupPage() {
       }, [setClasses]);
 
       useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/groupStudents?groupId=${groupId}`;
+        const apiUrl = `${BASE_URL}/api/professor/groupStudents?groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setStudents(allPersons);

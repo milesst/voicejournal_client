@@ -70,7 +70,7 @@ export default function NewTaskPopup(props) {
     }
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
+        const apiUrl = `${BASE_URL}/api/professor/disciplinesAndGroups?userId=${getUserId()}`;
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
     

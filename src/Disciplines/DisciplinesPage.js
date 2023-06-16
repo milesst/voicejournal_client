@@ -9,7 +9,7 @@ export default function DisciplinesPage() {
     const [disciplines, setDisciplines] = useState([])
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/disciplineInfo?userId=${getUserId()}`;
+        const apiUrl = `${BASE_URL}/api/professor/disciplineInfo?userId=${getUserId()}`;
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           console.log(allPersons)

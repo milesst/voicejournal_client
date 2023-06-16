@@ -53,7 +53,7 @@ export default function ProfilePage() {
     //   };
 
     useEffect(() => {
-            const apiUrl = `${API.BASE_URL}/api/professor/personalData?userId=${getUserId()}`;
+            const apiUrl = `${BASE_URL}/api/professor/personalData?userId=${getUserId()}`;
             axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
               const allPersons = resp.data;
               console.log(allPersons)

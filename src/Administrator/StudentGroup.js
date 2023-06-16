@@ -17,7 +17,7 @@ export default function StudentGroup() {
     const [searchData, setSearchData] = useState('')
     
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/admin/students?groupId=${groupId}`;
+        const apiUrl = `${BASE_URL}/api/admin/students?groupId=${groupId}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const data = resp.data;
           setStudents(data);
@@ -27,7 +27,7 @@ export default function StudentGroup() {
 
 
     function deleteStudent() {
-        const apiUrl = `${API.BASE_URL}/api/admin/deleteStudent?userId=${selectedStudent.student_id}`;
+        const apiUrl = `${BASE_URL}/api/admin/deleteStudent?userId=${selectedStudent.student_id}`;
         axios.delete(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)
@@ -35,7 +35,7 @@ export default function StudentGroup() {
     }  
 
     function updateStudent() {
-        const apiUrl = `${API.BASE_URL}/api/admin/updateStudent`;
+        const apiUrl = `${BASE_URL}/api/admin/updateStudent`;
         axios.put(apiUrl, newUserData,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)

@@ -11,7 +11,7 @@ export default function DocumentPage() {
     const [documents, setDocuments] = useState()
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/documents/documentList?userId=${getUserId()}`;
+        const apiUrl = `${BASE_URL}/api/documents/documentList?userId=${getUserId()}`;
         console.log(apiUrl)
         axios.get(apiUrl, {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
@@ -21,7 +21,7 @@ export default function DocumentPage() {
       }, [setDocuments]);
 
     function downloadDocument(id) {
-        const apiUrl = `${API.BASE_URL}/api/documents/downloadDocument?docId=${id}`;
+        const apiUrl = `${BASE_URL}/api/documents/downloadDocument?docId=${id}`;
         console.log(apiUrl)
         axios.get(apiUrl, {
             headers: { Authorization: `Bearer ${getAccessToken()}` },

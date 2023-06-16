@@ -14,7 +14,7 @@ export function Users() {
     const [searchData, setSearchData] = useState('')
     
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/admin/users`;
+        const apiUrl = `${BASE_URL}/api/admin/users`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const data = resp.data;
           setUsers(data);
@@ -24,7 +24,7 @@ export function Users() {
 
 
     function deleteUser() {
-        const apiUrl = `${API.BASE_URL}/api/admin/deleteUser?userId=${selectedUser.user_id}`;
+        const apiUrl = `${BASE_URL}/api/admin/deleteUser?userId=${selectedUser.user_id}`;
         axios.delete(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)
@@ -32,7 +32,7 @@ export function Users() {
     }  
 
     function updateUser() {
-        const apiUrl = `${API.BASE_URL}/api/admin/updateUser`;
+        const apiUrl = `${BASE_URL}/api/admin/updateUser`;
         axios.put(apiUrl, newUserData,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
             const data = resp.data;
             console.log(data)

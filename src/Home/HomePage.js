@@ -6,7 +6,7 @@ import NewTaskPopup from "../Popup/NewTaskPopup";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getUserId } from "../Utils/utils";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function HomePage() {
     const [classes, setClasses] = useState([])
@@ -39,7 +39,7 @@ export default function HomePage() {
     function closeForm(e) {
       setNewTaskVisible(false)
 
-      const apiUrl = `${API.BASE_URL}/api/professor/deadlineAssignments?userId=${getUserId()}`;
+      const apiUrl = `${BASE_URL}/api/professor/deadlineAssignments?userId=${getUserId()}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setTasks(allPersons);
@@ -51,7 +51,7 @@ export default function HomePage() {
     }
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/todayClasses?userId=${getUserId()}`;
+        const apiUrl = `${BASE_URL}/api/professor/todayClasses?userId=${getUserId()}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setClasses(allPersons);
@@ -60,7 +60,7 @@ export default function HomePage() {
       }, [])
 
     useEffect(() => {
-        const apiUrl = `${API.BASE_URL}/api/professor/deadlineAssignments?userId=${getUserId()}`;
+        const apiUrl = `${BASE_URL}/api/professor/deadlineAssignments?userId=${getUserId()}`;
         axios.get(apiUrl,  {headers: { Authorization: `Bearer ${getAccessToken()}` }}).then((resp) => {
           const allPersons = resp.data;
           setTasks(allPersons);
