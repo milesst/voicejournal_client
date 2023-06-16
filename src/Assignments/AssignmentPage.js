@@ -4,7 +4,7 @@ import { NavLink, useParams, useSearchParams } from "react-router-dom"
 import { getAccessToken, parseDateFromJSONDate } from "../Utils/utils";
 import { ToastContainer, toast } from "react-toastify";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function AssignmentPage() {
     let {id} = useParams()

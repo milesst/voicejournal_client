@@ -4,7 +4,7 @@ import axios from "axios";
 import { getAccessToken } from "../Utils/utils";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getUserId } from "../Utils/utils";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function ClassHistoryPage() {
     const [classes, setClasses] = useState()

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AiFillEdit, AiFillPlusCircle } from 'react-icons/ai'
 import { getAccessToken } from '../Utils/utils';
 import { ToolBar } from './ToolBar';
-import { API } from '../Utils/api';
+import { API, BASE_URL } from '../Utils/api';
 
 export function Users() {
     const [users, setUsers] = useState([])

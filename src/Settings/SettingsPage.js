@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import Toggle from 'react-toggle';
 import "react-toggle/style.css"
-import { API } from '../Utils/api';
+import { API, BASE_URL } from '../Utils/api';
 
 function urlB64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);

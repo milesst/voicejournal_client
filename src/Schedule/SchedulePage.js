@@ -2,7 +2,7 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 import ScheduleWeekItem from "./ScheduleWeekItem";
 import { getAccessToken, getUserId } from "../Utils/utils";
-import { API } from "../Utils/api";
+import { BASE_URL } from "../Utils/api";
 
 export default function SchedulePage() {
     const [schedule, setSchedule] = useState([])

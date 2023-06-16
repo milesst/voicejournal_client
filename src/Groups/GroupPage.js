@@ -6,7 +6,7 @@ import { getAccessToken, getUserId } from "../Utils/utils";
 import { useParams } from "react-router-dom";
 import NewTaskPopup from "../Popup/NewTaskPopup";
 import { AiOutlineDown, AiOutlineLine } from "react-icons/ai";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function GroupPage() {
     const { groupId } = useParams()

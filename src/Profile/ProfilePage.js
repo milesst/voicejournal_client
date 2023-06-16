@@ -4,7 +4,7 @@ import { NavLink, Navigate, redirect } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, getUserId, isAdmin } from "../Utils/utils";
 import { ToastContainer, toast } from "react-toastify";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function ProfilePage() {
     const [user, setUser] = useState({})

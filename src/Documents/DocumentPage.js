@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { getAccessToken, getUserId } from "../Utils/utils";
 import axios from "axios";
 import { saveAs } from "file-saver";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function DocumentPage() {
     const [documents, setDocuments] = useState()

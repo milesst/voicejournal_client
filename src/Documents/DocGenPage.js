@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getAccessToken, getUserId } from "../Utils/utils"
 import { NavLink, useNavigate } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
-import { API } from "../Utils/api"
+import { API, BASE_URL } from "../Utils/api"
 import Select from "react-select";
 
 export default function DocGenPage() {

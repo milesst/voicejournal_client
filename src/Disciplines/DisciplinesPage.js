@@ -3,7 +3,7 @@ import DisciplineItem from "./DisciplineItem";
 import axios from "axios";
 import { getAccessToken, getUserId } from "../Utils/utils";
 import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
-import { API } from "../Utils/api";
+import { API, BASE_URL } from "../Utils/api";
 
 export default function DisciplinesPage() {
     const [disciplines, setDisciplines] = useState([])
