@@ -32,6 +32,7 @@ import Students from './Administrator/Students';
 import StudentGroup from './Administrator/StudentGroup';
 import SettingsPage from './Settings/SettingsPage';
 import axios from 'axios';
+import AllAssignmentsPage from './Assignments/AllAssignmentsPage';
 // function useToken() {
 //   const getToken = () => {
 //     const tokenString = localStorage.getItem('token');
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <SettingsPage />
+          },
+          {
+            path: "disciplineAssignments/:disciplineId",
+            element: <AllAssignmentsPage />
           }
         ]
       },

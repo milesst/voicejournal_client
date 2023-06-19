@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import {AiFillClockCircle, AiOutlineClockCircle, AiOutlineHistory} from 'react-icons/ai'
+import {AiFillClockCircle, AiFillContainer, AiOutlineClockCircle, AiOutlineHistory} from 'react-icons/ai'
 
 export default function DisciplineItem(props) {
     const itemStyle = (i) => {return { backgroundColor: `hsl(${(i+2)*50}, 100%, 46%)`}}
@@ -9,6 +9,7 @@ export default function DisciplineItem(props) {
         <div className="DisciplineItem">
             <div className="discipline-name">
                 <span>{props.discipline}</span>
+                <NavLink to={`/disciplineAssignments/${props.disciplineId}`} state={{name: props.discipline}}><AiFillContainer  className='icon' size={25}/></NavLink>
                 <NavLink to={`/classHistory`} state={{disciplineId: props.disciplineId}}><AiOutlineHistory  className='icon' size={25}/></NavLink>
             </div>
             <div className="discipline-period">{new Date(props.startDate).toLocaleDateString()} — {new Date(props.endDate).toLocaleDateString()}</div>

@@ -44,7 +44,7 @@ export default function ActiveClassPage(props) {
     
   const [startDate, setStartDate] = useState(new Date().toLocaleDateString().split('.').reverse().join('-'))
   const [time, setTime] = useState(new Date() - new Date(JSON.parse(localStorage.getItem('activeClass')).data.start_time) || 0);
-  const [startTime, setStartTime] = useState(new Date().toLocaleString())
+  const [startTime, setStartTime] = useState( localStorage.getItem('activeClass') ? JSON.parse(localStorage.getItem('activeClass')).data.start_time : new Date().toJSON())
   const [assignments, setAssignments] = useState([])
   const [students, setStudents] = useState([])
 

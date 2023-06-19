@@ -182,6 +182,11 @@ a {
     /* height:100%; */
 }
 
+.AssignmentPage {
+    display: flex;
+    flex-flow: column;
+}
+
 .Content {
     width: 100%;
     /* height: 100%; */
@@ -223,6 +228,10 @@ a {
 
 .DisciplineItem .discipline-period {
     font-size: 14px;
+}
+
+.DisciplineItem .discipline-name span {
+    max-width: 80%;
 }
 
 .assignments-label {
@@ -322,6 +331,32 @@ transition: opacity 150ms linear;
 
 .LoginPage, .HomePage, .ProfilePage {
     height: 100%;
+}
+
+.LoginPage {
+    display: flex;
+    flex-flow: column;
+}
+
+.submit-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.LoginPage button:disabled {
+    background-color: white;
+    color: gray
+    /* color:rgb(75, 99, 237) */
+}
+
+.LoginPage button:not(:disabled) {
+    transition: all 1s ease;
+}
+
+.login-welcome {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 .HomePage {
@@ -430,7 +465,7 @@ transition: opacity 150ms linear;
     color: gray;
 }
 
-.ContentSectionWrap .home-discipline-item, .ContentSectionWrap .assignment-item {
+.ContentSectionWrap .home-discipline-item, .ContentSectionWrap .assignment-item, .AllAssignmentsPage .assignment-item {
     padding: 0.6rem 0;
     box-sizing: border-box;
     font-size: 16px;
@@ -486,7 +521,7 @@ transition: opacity 150ms linear;
 
 }
 
-.ContentSectionWrap .assignment-item-description {
+.assignment-item-description {
     /* font-size: 0.9rem; */
     padding: 0.2rem 0;
 }
@@ -664,7 +699,9 @@ transition: opacity 150ms linear;
 }
 
 .ScheduleWeekClass, .class-hidden, .left, .right {
-    transition: width 0.5s ease-in;
+    /* transition: all 0.5s ease-in; */
+    transition: right 0.5s ease-in;
+    transition: left 0.5s ease-in;
 }
 
 .SchedulePage .class-hidden {
@@ -1279,3 +1316,77 @@ dialog::backdrop {
     font-size: 1.3rem;
     font-weight: 600;
 }
+
+.AllAssignmentsPage {
+    display: flex;
+    flex-flow: column;
+}
+
+.AllAssignmentsPage {
+    height: 100%;
+}
+
+.AllAssignmentsPage .assignment-item > div {
+    padding: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.AllAssignmentsPage .assignment-item:not(:last-child) {
+    border-bottom: 1px solid lightgray;
+}
+
+.AllAssignmentsPage .assignment-completion-info {
+    text-align: end;
+    vertical-align: middle;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.assignment-completion-info .completed-amount {
+    font-weight: 800;
+    font-size: 1.1rem;
+
+}
+
+.AllAssignmentsPage .assignment-general-info {
+    flex-grow: 3;
+    max-width: 70%;
+}
+
+.AllAssignmentsPage .description {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.AllAssignmentsPage .ContentHeader > * {
+    font-size: 1rem;
+    padding: 0.2rem 1rem;
+}
+
+#special-auth-btn {
+    position: absolute;
+    background-color: orange;
+    width: 80%;
+    top: 50px;
+    border: none;
+    padding: 1rem 0.5rem;
+    border-radius: 20px;
+    font-size: 1rem;
+
+    color: white;
+    animation: glow 1s infinite alternate;
+    /* margin:auto; */
+}
+
+@keyframes glow {
+    from {
+      box-shadow: 0 0 10px -5px orange;
+    }
+    to {
+      box-shadow: 0 0 10px 5px orange;
+    }
+  }

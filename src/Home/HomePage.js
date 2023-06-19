@@ -9,8 +9,8 @@ import { getUserId } from "../Utils/utils";
 import { API, BASE_URL } from "../Utils/api";
 
 export default function HomePage() {
-    const [classes, setClasses] = useState([])
-    const [tasks, setTasks] = useState([])  
+    const [classes, setClasses] = useState()
+    const [tasks, setTasks] = useState()  
     const [newTaskVisible, setNewTaskVisible] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
@@ -57,7 +57,7 @@ export default function HomePage() {
           setClasses(allPersons);
           console.log(allPersons)
         });
-      }, [])
+      }, [setClasses])
 
     useEffect(() => {
         const apiUrl = `${BASE_URL}/api/professor/deadlineAssignments?userId=${getUserId()}`;
@@ -66,7 +66,7 @@ export default function HomePage() {
           setTasks(allPersons);
           console.log(allPersons)
         });
-      }, [setTasks, newTaskVisible, setNewTaskVisible])
+      }, [setTasks, newTaskVisible])
 
     return (
         <div className="HomePage">

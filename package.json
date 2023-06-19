@@ -10,6 +10,7 @@
     "eslint": "^8.42.0",
     "file-saver": "^2.0.5",
     "framer-motion": "^10.12.16",
+    "fuse.js": "^6.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
@@ -17,7 +18,7 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.2",
-    "react-speech-recognition": "^3.10.0",
+    "react-speech-recognition": "^3.2.0",
     "react-toastify": "^9.1.3",
     "react-toggle": "^4.1.3",
     "react-transition-group": "^4.4.5",
@@ -26,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start -r dotenv/config",
-    "start-local": "REACT_APP_SERVER_API_URL=http://localhost:3000 react-scripts start -r dotenv/config", 
+    "start-local": "REACT_APP_SERVER_API_URL=http://localhost:3000 react-scripts start -r dotenv/config",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
