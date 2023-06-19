@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getAccessToken, getUserId, isAdmin } from "../Utils/utils";
 import { ToastContainer, toast } from "react-toastify";
 import { API, BASE_URL } from "../Utils/api";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 export default function ProfilePage() {
     const [user, setUser] = useState({})
@@ -68,7 +69,9 @@ export default function ProfilePage() {
         <div className="ProfilePage">
             <ToastContainer />
             <div className="avatar-wrap"></div>
-            <div className="user-name-wrap">{user.last_name} {user.first_name} {user.patronymic}</div>
+            <div className="user-name-wrap">
+                {Object.keys(user).length > 0 ? '' : <TailSpin stroke='orange' speed={.75} />}
+                {user.last_name} {user.first_name} {user.patronymic}</div>
             <ul className="menu-wrap">
                {/* <li></li> */}
                <NavLink to="/settings"><li>Настройки приложения</li></NavLink>

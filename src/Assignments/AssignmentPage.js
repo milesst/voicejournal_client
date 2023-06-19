@@ -124,11 +124,12 @@ export default function AssignmentPage() {
                 <div className="assignment-submission-group">
                     <ul><li><span className="all-students-header" onClick={() => setAllStudentsDisplay(!allStudentsDisplay)}>{assignment.groupNumber}</span>  
                     <ul className="all-students-wrap" style={{'display': (allStudentsDisplay ? 'initial' : 'none')}}>
-                    {assignment.completedAssignments.sort((a, b) => {
+                    {assignment ? assignment.completedAssignments.sort((a, b) => {
                           if (a.lastName > b.lastName) return 1;
                           if (a.lastName < b.lastName) return -1;
                           return 0
-                        }).map(item => <div onClick={() => showSubmitForm(item)} className={'student-assignment-item' + (item.completionId ? ' submitted' : '')}><div className="student-name">{item.lastName} {item.firstName} {item.patronymic}</div> <div className="student-grade">{item.grade ? item.grade : '0'}б</div></div>)}
+                        }).map(item => <div onClick={() => showSubmitForm(item)} className={'student-assignment-item' + (item.completionId ? ' submitted' : '')}><div className="student-name">{item.lastName} {item.firstName} {item.patronymic}</div> <div className="student-grade">{item.grade ? item.grade : '0'}б</div></div>)
+                    : ''}
                     </ul></li></ul>
                 </div>
             </div>

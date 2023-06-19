@@ -3,9 +3,10 @@ import { useState, useEffect } from "react"
 import ScheduleWeekItem from "./ScheduleWeekItem";
 import { getAccessToken, getUserId } from "../Utils/utils";
 import { BASE_URL } from "../Utils/api";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 export default function SchedulePage() {
-    const [schedule, setSchedule] = useState([])
+    const [schedule, setSchedule] = useState()
     
     useEffect(() => {
             const apiUrl = `${BASE_URL}/api/professor/scheduleWeek?userId=${getUserId()}`;
@@ -32,7 +33,8 @@ export default function SchedulePage() {
                                                         </select></span>
             </div>
           <div className="schedule-content">
-            {generateWeekItems()}
+          {schedule ? '' : <TailSpin style={{backgroundColor: 'transparent', position: 'absolute', margin: 'auto', right: '50%'}} stroke='orange' speed={.75} />}
+            {schedule ? generateWeekItems() : ''}
             {/* <ScheduleWeekItem weekDayNumber={0}></ScheduleWeekItem>
             <ScheduleWeekItem weekDayNumber={1}></ScheduleWeekItem>
             <ScheduleWeekItem weekDayNumber={2}></ScheduleWeekItem>

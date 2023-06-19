@@ -25,7 +25,7 @@ export default function DisciplinesPage() {
             <div className="Content">
                 { disciplines.length > 0 ? 
                 disciplines.map(item => <DisciplineItem disciplineId={item.discipline_id} assignments={item.assignments} groups={item.groups} discipline={item.discipline} startDate={item.disciplineStart} endDate={item.disciplineEnd} />)
-                : <TailSpin stroke='orange' speed={.75} />
+                : <TailSpin style={{position: 'absolute', right: '50%'}} stroke='orange' speed={.75} />
                 }         
             </div>
         </div>
